@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>考研政治 · 核心记忆与2027时政微闯关</title>
+  <style>
+    /* ==========================================================================
+       1. 温润纸质设计系统（适配 iPhone Safari 与主屏幕全屏）
+       ========================================================================== */
+    :root {
+      --bg-paper: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F2EFE9;
+      --bg-hover: #E7E2D8;
+
+      --ink: #1D232A;
+      --ink-secondary: #4A5460;
+      --ink-muted: #78828E;
+
+      --crimson: #B83B2B;
+      --crimson-soft: #FDF2F0;
+      --crimson-border: rgba(184, 59, 43, 0.24);
+
+      --slate: #2B5B6C;
+      --slate-soft: #EFF5F7;
+      --slate-border: rgba(43, 91, 108, 0.24);
+
+      --forest: #2E6F40;
+      --forest-soft: #EEF7F1;
+      --forest-border: rgba(46, 111, 64, 0.26);
+
+      --amber: #B45309;
+      --amber-soft: #FEF6E7;
+      --amber-border: rgba(180, 83, 9, 0.32);
+
+      --err: #B42318;
+      --err-soft: #FEF3F2;
+      --err-border: rgba(180, 35, 24, 0.28);
+
+      --border: #E5E0D6;
+      --shadow-sm: 0 2px 6px rgba(29, 35, 42, 0.04);
+      --shadow-md: 0 10px 26px rgba(29, 35, 42, 0.07);
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 18px;
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-serif: "Songti SC", "STSong", "Noto Serif SC", Georgia, serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100dvh;
+      background-color: var(--bg-paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.56;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+      transition: transform 0.12s ease, background-color 0.16s ease, border-color 0.16s ease, opacity 0.16s ease;
+    }
+
+    button:active:not(:disabled) {
+      transform: scale(0.975);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+    }
+
+    .app-shell {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 12px 14px calc(26px + env(safe-area-inset-bottom, 0px));
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       2. 顶部栏 & 双主赛道切换
+       ========================================================================== */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--crimson) 0%, var(--slate) 100%);
+      color: #FFFFFF;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-sub {
+      margin: 0;
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    .top-btns {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      box-shadow: var(--shadow-sm);
+      white-space: nowrap;
+    }
+
+    .pill-btn.slate { background: var(--slate-soft); border-color: var(--slate-border); color: var(--slate); }
+    .pill-btn.crimson { background: var(--crimson-soft); border-color: var(--crimson-border); color: var(--crimson); }
+    .pill-btn.amber { background: var(--amber-soft); border-color: var(--amber-border); color: var(--amber); }
+
+    .track-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: var(--bg-subtle);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .track-tab {
+      padding: 8px 8px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      color: var(--ink-secondary);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .track-tab .sub {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    .track-tab.active {
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .track-tab[data-track="ca"].active { color: var(--slate); }
+    .track-tab[data-track="core"].active { color: var(--crimson); }
+    .track-tab.active .sub { color: var(--ink-secondary); }
+
+    /* ==========================================================================
+       3. 进度条 & 子工具条
+       ========================================================================== */
+    .goal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 9px 12px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .goal-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .goal-metrics {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .goal-metrics span.lbl {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin-right: 3px;
+    }
+
+    .goal-track {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .goal-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--slate) 0%, var(--forest) 100%);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .mini-btn {
+      padding: 5px 9px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+    }
+
+    .mini-btn:hover { background: var(--bg-hover); color: var(--ink); }
+    .mini-btn.danger { background: var(--crimson-soft); color: var(--crimson); }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .seg-group {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .seg-btn {
+      padding: 6px 10px;
+      border-radius: 9px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+    }
+
+    .seg-btn.active { background: var(--slate); border-color: var(--slate); color: #FFFFFF; }
+    .seg-btn.active-crimson { background: var(--crimson); border-color: var(--crimson); color: #FFFFFF; }
+    .seg-btn.active-forest { background: var(--forest); border-color: var(--forest); color: #FFFFFF; }
+
+    /* ==========================================================================
+       4. Track B：2027时政微闯关（轻量化微提示 + 1题即测 + 折叠速览）
+       ========================================================================== */
+    .stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    @keyframes slideUp {
+      0% { transform: translateY(10px); opacity: 0.4; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .anim-in {
+      animation: slideUp 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge.slate { background: var(--slate-soft); color: var(--slate); border: 1px solid var(--slate-border); }
+    .badge.crimson { background: var(--crimson-soft); color: var(--crimson); border: 1px solid var(--crimson-border); }
+    .badge.forest { background: var(--forest-soft); color: var(--forest); border: 1px solid var(--forest-border); }
+    .badge.amber { background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-border); }
+    .badge.muted { background: var(--bg-subtle); color: var(--ink-muted); border: 1px solid var(--border); }
+
+    /* 微提示切片卡片 */
+    .micro-tip-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--slate-border);
+      border-radius: var(--radius-lg);
+      padding: 13px 15px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .micro-tip-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .micro-tip-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .kw-chip {
+      background: var(--slate-soft);
+      border: 1px solid var(--slate-border);
+      color: var(--ink);
+      border-radius: 9px;
+      padding: 6px 10px;
+      font-size: 12.5px;
+      line-height: 1.42;
+      font-weight: 600;
+    }
+
+    .kw-chip strong {
+      color: var(--slate);
+      font-weight: 800;
+    }
+
+    .micro-full-text {
+      margin: 0;
+      padding: 8px 10px;
+      border-radius: 9px;
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    /* 做题卡片 */
+    .quiz-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 15px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .q-stem {
+      font-family: var(--font-serif);
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.58;
+    }
+
+    .opt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 11px;
+      border: 1.5px solid var(--border);
+      background: var(--bg-paper);
+      font-size: 13.5px;
+      line-height: 1.48;
+      color: var(--ink);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .opt-btn:hover:not(:disabled) {
+      border-color: var(--slate);
+      background: var(--slate-soft);
+    }
+
+    .opt-btn.selected {
+      border-color: var(--slate);
+      background: var(--slate-soft);
+      font-weight: 700;
+    }
+
+    .opt-btn.opt-right {
+      border-color: var(--forest);
+      background: var(--forest-soft);
+      color: var(--forest);
+      font-weight: 700;
+    }
+
+    .opt-btn.opt-wrong {
+      border-color: var(--err);
+      background: var(--err-soft);
+      color: var(--err);
+      font-weight: 700;
+    }
+
+    .opt-key {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .feedback-box {
+      border-radius: 11px;
+      padding: 10px 12px;
+      font-size: 12.8px;
+      line-height: 1.55;
+    }
+
+    .feedback-box.right {
+      background: var(--forest-soft);
+      border: 1px solid var(--forest-border);
+      color: var(--forest);
+    }
+
+    .feedback-box.wrong {
+      background: var(--err-soft);
+      border: 1px solid var(--err-border);
+      color: var(--err);
+    }
+
+    /* 折叠速览目录（手风琴，绝不一次性摊开长文） */
+    .acc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .acc-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .acc-item.done {
+      border-color: var(--forest-border);
+    }
+
+    .acc-head {
+      width: 100%;
+      padding: 11px 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .acc-title {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .acc-body {
+      padding: 0 13px 12px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-paper);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 10px;
+    }
+
+    /* ==========================================================================
+       5. Track A：32核心会议 + 25毛选著作（干净两态切换：签面 / 考点解析）
+       ========================================================================== */
+    .card-panel {
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .card-front-view {
+      padding: 20px 18px;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .card-back-view {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .face-top {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .front-year {
+      font-family: var(--font-mono);
+      font-size: clamp(38px, 9.5vw, 52px);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-bottom: 10px;
+    }
+
+    .front-year.meeting { color: var(--crimson); }
+    .front-year.work { color: var(--forest); }
+    .front-year.blind { color: var(--slate); }
+
+    .front-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 5.2vw, 27px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.38;
+    }
+
+    .front-tip {
+      font-size: 12px;
+      color: var(--ink-muted);
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .back-top {
+      padding: 12px 15px;
+      background: #FCFBF8;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .back-body {
+      padding: 13px 15px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .layer-box {
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .layer-box.core { background: #FFFFFF; border: 1px solid var(--border); border-left: 3.5px solid var(--slate); }
+    .layer-box.sec { background: var(--bg-paper); border: 1px solid var(--border); }
+    .layer-box.trap { background: var(--amber-soft); border: 1px solid var(--amber-border); border-left: 3.5px solid var(--amber); }
+    .layer-box.link { background: var(--slate-soft); border: 1px solid var(--slate-border); }
+
+    .layer-lbl {
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .layer-box.core .layer-lbl { color: var(--slate); }
+    .layer-box.sec .layer-lbl { color: var(--ink-secondary); }
+    .layer-box.trap .layer-lbl { color: var(--amber); }
+    .layer-box.link .layer-lbl { color: var(--slate); }
+
+    .layer-txt {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .kw-hl {
+      font-weight: 700;
+      padding: 0 3px;
+      border-radius: 4px;
+    }
+
+    .kw-hl.meeting { background: var(--crimson-soft); color: var(--crimson); }
+    .kw-hl.work { background: var(--forest-soft); color: var(--forest); }
+
+    .cloze-pill {
+      display: inline-block;
+      padding: 1px 8px;
+      margin: 0 2px;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .cloze-pill.masked {
+      background: var(--slate);
+      color: var(--slate);
+      user-select: none;
+    }
+
+    .cloze-pill.shown {
+      background: var(--forest-soft);
+      color: var(--forest);
+      border: 1px solid var(--forest-border);
+    }
+
+    .back-bottom {
+      padding: 9px 15px;
+      background: #FCFBF8;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11.5px;
+      color: var(--ink-muted);
+    }
+
+    /* ==========================================================================
+       6. 底部按钮、空态卡 & 弹窗（严格关闭时隐藏，打开时独立流式排列不叠层）
+       ========================================================================== */
+    .empty-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px 18px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .empty-card h3 {
+      margin: 0 0 8px;
+      font-family: var(--font-serif);
+      font-size: 18.5px;
+    }
+
+    .empty-card p {
+      margin: 0 0 16px;
+      font-size: 13.5px;
+      color: var(--ink-secondary);
+    }
+
+    .lock-tip {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--amber);
+      background: var(--amber-soft);
+      border: 1px solid var(--amber-border);
+      border-radius: 9px;
+      padding: 5px 10px;
+      margin-bottom: 6px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 9px;
+      width: 100%;
+    }
+
+    .btn-main {
+      flex: 1;
+      min-height: 48px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--slate);
+      color: #FFFFFF;
+      font-size: 14.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(43, 91, 108, 0.2);
+    }
+
+    .btn-main:disabled {
+      background: #D8D4CA;
+      color: #8A867C;
+      box-shadow: none;
+    }
+
+    .btn-err {
+      flex: 1;
+      min-height: 50px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: var(--crimson-soft);
+      border: 1.5px solid var(--crimson);
+      color: var(--crimson);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-ok {
+      flex: 1;
+      min-height: 50px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: var(--forest);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(46, 111, 64, 0.2);
+    }
+
+    .btn-err span.sub, .btn-ok span.sub {
+      font-size: 10.5px;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    .btn-err:disabled, .btn-ok:disabled {
+      background: #E8E5DC;
+      border-color: #DAD6CC;
+      color: #969288;
+      box-shadow: none;
+    }
+
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(29, 35, 42, 0.52);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      padding: 12px 12px 0;
+    }
+
+    @media (min-width: 640px) {
+      .modal-bg { align-items: center; padding: 18px; }
+    }
+
+    .modal-bg.open { display: flex; }
+
+    .modal-box {
+      width: 100%;
+      max-width: 660px;
+      max-height: 85dvh;
+      background: var(--bg-paper);
+      border-radius: 18px 18px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 640px) {
+      .modal-box { border-radius: 18px; max-height: 84dvh; }
+    }
+
+    .modal-box.narrow {
+      max-width: 440px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+
+    .modal-head {
+      padding: 13px 16px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: 15.5px;
+    }
+
+    .modal-filter-bar {
+      padding: 10px 16px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 520px) {
+      .modal-filter-bar {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .x-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      color: var(--ink-secondary);
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 14px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-row-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .search-row-card.done {
+      border-color: var(--forest-border);
+    }
+
+    .search-row-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .search-row-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .search-row-sub {
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .search-box {
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg-paper);
+      font-size: 13.5px;
+      color: var(--ink);
+    }
+
+    .backup-area {
+      width: 100%;
+      min-height: 105px;
+      padding: 9px 11px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink);
+      resize: vertical;
+    }
+
+    .toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-12px);
+      background: rgba(29, 35, 42, 0.94);
+      color: #FFFFFF;
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 200;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div class="app-shell">
+    <!-- 顶部栏 -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-mark">政</div>
+        <div>
+          <h1 class="brand-title">考研政治 · 轻量化通关助手</h1>
+          <p class="brand-sub">2027时政微闯关 · 32会议与25毛著背诵</p>
+        </div>
+      </div>
+
+      <div class="top-btns">
+        <button id="btnOpenSearch" class="pill-btn slate" type="button">🔍 检索</button>
+        <button id="btnOpenBackup" class="pill-btn" type="button">💾 存档</button>
+      </div>
+    </header>
+
+    <!-- 双主赛道 -->
+    <nav class="track-tabs" aria-label="学习赛道">
+      <button id="tabCa" class="track-tab active" data-track="ca" type="button">
+        <span>2027时政 · 微闯关</span>
+        <span class="sub">先扫微提示 → 1题即测（读熟即可）</span>
+      </button>
+      <button id="tabCore" class="track-tab" data-track="core" type="button">
+        <span>核心背诵 · 32会议与25毛著</span>
+        <span class="sub">翻面抽签 · 会著联动 · 挖空自测</span>
+      </button>
+    </nav>
+
+    <!-- 今日目标与进度 -->
+    <section id="goalBar" class="goal-card" aria-label="学习进度"></section>
+
+    <!-- 子工具条 -->
+    <div id="subBar" class="toolbar"></div>
+
+    <!-- 主舞台 -->
+    <main id="stage" class="stage"></main>
+
+    <!-- 底部主按钮 -->
+    <section id="bottomBar"></section>
+  </div>
+
+  <!-- 会著联动速览弹窗 -->
+  <div id="linkModal" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="linkModalTitle">
+    <div class="modal-box narrow">
+      <div class="modal-head">
+        <h3 id="linkModalTitle">🔗 会著联动对照</h3>
+        <button id="btnCloseLink" class="x-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div id="linkModalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 全库检索与双盒管理 -->
+  <div id="searchModal" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="searchModalTitle">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="searchModalTitle">全库检索与熟练度管理</h3>
+        <button id="btnCloseSearch" class="x-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-filter-bar">
+        <input id="searchInput" class="search-box" type="text" placeholder="搜年份、会议/著作、时政关键词..." />
+        <select id="searchFilter" class="seg-btn" style="min-height:40px;padding:8px 10px;flex-shrink:0;">
+          <option value="ALL">全部条目</option>
+          <option value="UNFAMILIAR">未熟练</option>
+          <option value="MASTERED">已熟练</option>
+          <option value="WRONG">🔥 错题高优</option>
+        </select>
+      </div>
+      <div id="searchList" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 存档备份 -->
+  <div id="backupModal" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="backupModalTitle">
+    <div class="modal-box narrow">
+      <div class="modal-head">
+        <h3 id="backupModalTitle">进度存档与备份</h3>
+        <button id="btnCloseBackup" class="x-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin:0;font-size:12.5px;color:var(--ink-secondary);">
+          进度自动保存在当前手机本地。可复制备份码存到备忘录，随时粘贴恢复。
+        </p>
+        <div class="btn-row">
+          <button id="btnExport" class="mini-btn" style="flex:1;padding:8px;" type="button">生成备份码</button>
+          <button id="btnCopy" class="mini-btn" style="flex:1;padding:8px;" type="button">复制备份码</button>
+          <button id="btnImport" class="btn-main" style="flex:1;min-height:34px;padding:6px;font-size:12px;" type="button">导入恢复</button>
+        </div>
+        <textarea id="backupArea" class="backup-area" placeholder="点「生成备份码」导出，或粘贴备份码至此点「导入恢复」..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二次确认 -->
+  <div id="confirmModal" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="modal-box narrow">
+      <div class="modal-head">
+        <h3 id="confirmTitle">请确认操作</h3>
+        <button id="btnCloseConfirm" class="x-btn" type="button" aria-label="关闭">×</button>
+      </div>
+      <div style="padding:18px;text-align:center;">
+        <p id="confirmMsg" style="margin:0 0 16px;font-size:13.5px;color:var(--ink-secondary);"></p>
+        <div class="btn-row">
+          <button id="btnCancelConfirm" class="mini-btn" style="flex:1;padding:10px;font-size:13.5px;" type="button">取消</button>
+          <button id="btnOkConfirm" class="btn-main" style="flex:1;min-height:40px;background:var(--crimson);font-size:13.5px;" type="button">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. TRACK A：32 核心会议 + 25 篇毛泽东著作（保留会著联动与三层解析）
+       ========================================================================== */
+    const CORE_CARDS = [
+      { id: "m01", kind: "meeting", order: 1921.07, year: "1921", title: "中共一大", tag: "建党开天辟地", linkIds: ["m02"], linkNote: "一大宣告建党并提出最高奋斗目标，次年二大补齐反帝反封建民主革命纲领。", core: "通过党纲，确定推翻资产阶级、建立{{无产阶级专政}}；确定党名为中国共产党；宣告{{中国共产党成立}}。", sec: "确定中心工作为组织和领导工人运动。", trap: "未提出反帝反封建民主革命纲领（1922中共二大）。", q: { stem: "中共一大首次明确提出了反帝反封建的民主革命纲领。", ans: false, exp: "错误。反帝反封建民主革命纲领首提于1922年中共二大。" } },
+      { id: "m02", kind: "meeting", order: 1922.07, year: "1922", title: "中共二大", tag: "首提反帝反封建纲领", linkIds: ["m01", "m03"], linkNote: "二大首提反帝反封建纲领，三大据此决定党内合作建立统一战线。", core: "首次提出明确的{{反帝反封建}}民主革命纲领；区分{{最低纲领}}与{{最高纲领}}。", sec: "开始采取群众路线方法；决定加入共产国际。", trap: "未提出无产阶级领导权与工农联盟（1925中共四大）。", q: { stem: "中共二大首次区分并制定了党的最低纲领和最高纲领。", ans: true, exp: "正确。最低纲领反帝反封建，最高纲领实现共产主义。" } },
+      { id: "m03", kind: "meeting", order: 1923.06, year: "1923", title: "中共三大", tag: "决定党内合作", linkIds: ["m02", "m04"], linkNote: "三大决定个人名义加入国民党，四大进一步明确无产阶级领导权。", core: "决定全体共产党员以{{个人名义加入国民党}}（党内合作），建立{{革命统一战线}}；保持党在政治、思想、组织上的{{独立性}}。", sec: "正确估计孙中山和国民党的革命立场。", trap: "第一次国共合作正式形成标志为1924年国民党一大。", q: { stem: "中共三大的召开标志着第一次国共合作正式形成。", ans: false, exp: "错误。正式形成标志是1924年国民党一大。" } },
+      { id: "m04", kind: "meeting", order: 1925.01, year: "1925", title: "中共四大", tag: "首提领导权与工农联盟", linkIds: ["w01", "w02"], linkNote: "四大首提无产阶级领导权与工农联盟，年底《中国社会各阶级的分析》系统论证这一思想。", core: "明确提出{{无产阶级在民主革命中的领导权}}问题；明确提出{{工农联盟}}问题，指出农民是天然同盟军。", sec: "对民主革命内容作了更完整规定。", trap: "“农民问题乃国民革命的中心问题”出自1926《国民革命与农民运动》。", q: { stem: "中共四大首次明确提出了无产阶级领导权和工农联盟问题。", ans: true, exp: "正确。这是中共四大核心历史贡献。" } },
+      { id: "m05", kind: "meeting", order: 1927.08, year: "1927", title: "八七会议", tag: "土地革命与武装反抗", linkIds: ["w03", "m06"], linkNote: "大革命失败后八七会议提出“枪杆子出政权”，1929古田会议定型“党指挥枪”。", core: "清算陈独秀{{右倾机会主义}}；确定{{土地革命}}和{{武装反抗国民党反动统治}}总方针；提出“{{政权是由枪杆子中取得的}}”。", sec: "决定发动秋收起义。", trap: "思想建党、政治建军原则确立于1929古田会议。", q: { stem: "八七会议确立了思想建党、政治建军的建党建军原则。", ans: false, exp: "错误。思想建党、政治建军原则确立于1929年古田会议。" } },
+      { id: "m06", kind: "meeting", order: 1929.12, year: "1929", title: "古田会议", tag: "思想建党·政治建军", linkIds: ["m05", "w04"], linkNote: "围绕井冈山与赣南闽西根据地建设，古田会议确立思想建党、政治建军原则。", core: "确立{{思想建党、政治建军}}原则；规定红军是执行革命政治任务的武装集团；使{{党对军队绝对领导}}根本原则定型。", sec: "通过《古田会议决议》，肃清非无产阶级思想。", trap: "党指挥枪发端于南昌起义、奠基于三湾改编、定型于古田会议。", q: { stem: "古田会议确立了思想建党、政治建军原则，使党对军队绝对领导定型。", ans: true, exp: "正确。古田会议定型党对军队绝对领导根本原则。" } },
+      { id: "m07", kind: "meeting", order: 1931.11, year: "1931", title: "中华苏维埃第一次全国代表大会", tag: "工农民主专政建立", linkIds: ["w04", "w05"], linkNote: "“工农武装割据”发展到建立全国性红色政权——中华苏维埃共和国临时中央政府。", core: "在瑞金召开，通过《{{中华苏维埃共和国宪法大纲}}》；宣告{{中华苏维埃共和国临时中央政府}}成立，建立{{工农民主专政}}政权。", sec: "实行工农兵代表大会制度。", trap: "“三三制”政权属抗战时期，非苏维埃工农民主专政政权。", q: { stem: "中华苏维埃第一次全国代表大会实行“三三制”抗日民主政权原则。", ans: false, exp: "错误。苏维埃实行工农兵代表大会制度，“三三制”属抗战时期。" } },
+      { id: "m08", kind: "meeting", order: 1935.01, year: "1935", title: "遵义会议", tag: "生死攸关转折点", linkIds: ["w08", "m09"], linkNote: "遵义会议解决军事和组织问题，会后《中国革命战争的战略问题》从理论上总结土地革命军事经验。", core: "集中解决最具决定意义的{{军事问题和组织问题}}；开始确立以毛泽东为主要代表的正确路线在党中央的{{领导地位}}；{{生死攸关的转折点}}。", sec: "成立周恩来、毛泽东、王稼祥三人军事指挥小组。", trap: "未将毛泽东思想写入党章（1945中共七大）。", q: { stem: "遵义会议彻底清算了王明“左”倾教条主义在思想路线和政治路线上的错误。", ans: false, exp: "错误。遵义会议集中解决军事问题和组织问题。" } },
+      { id: "m09", kind: "meeting", order: 1935.121, year: "1935", title: "瓦窑堡会议", tag: "抗日民族统一战线", linkIds: ["w07", "m10"], linkNote: "瓦窑堡会议后毛泽东作《论反对日本帝国主义的策略》，系统阐明抗日民族统一战线理论。", core: "确立{{抗日民族统一战线}}策略方针；批判“左”倾{{关门主义}}；将“工农共和国”改为“{{人民共和国}}”。", sec: "系统解决党的政治路线问题。", trap: "《抗日救国十大纲领》与全面抗战路线出自1937洛川会议。", q: { stem: "瓦窑堡会议确立了抗日民族统一战线策略方针，并将“工农共和国”改为“人民共和国”。", ans: true, exp: "正确。这是瓦窑堡会议核心决议。" } },
+      { id: "m10", kind: "meeting", order: 1937.082, year: "1937", title: "洛川会议", tag: "全面抗战路线·十大纲领", linkIds: ["m09", "w11"], linkNote: "洛川会议制定全面抗战路线，次年《论持久战》科学预见抗战三阶段发展进程。", core: "制定《{{抗日救国十大纲领}}》；提出{{全面抗战路线}}；确定{{独立自主的山地游击战}}方针；实行{{减租减息}}农民政策。", sec: "改组中央军委，毛泽东任书记。", trap: "非“耕者有其田”（抗战实行减租减息）。", q: { stem: "洛川会议决定抗战时期实行没收地主土地的“耕者有其田”政策。", ans: false, exp: "错误。洛川会议决定实行减租减息政策。" } },
+      { id: "m11", kind: "meeting", order: 1938.101, year: "1938", title: "六届六中全会", tag: "首提马克思主义中国化", linkIds: ["w12", "w13"], linkNote: "毛泽东在六届六中全会作《论新阶段》报告，首次明确提出“马克思主义中国化”命题。", core: "毛泽东作《论新阶段》报告，首次明确提出“{{马克思主义中国化}}”重大命题；基本克服王明{{右倾错误}}。", sec: "重申独立自主领导抗日武装斗争原则。", trap: "毛泽东思想写入党章确立为指导思想在1945中共七大。", q: { stem: "六届六中全会上毛泽东首次明确提出了“马克思主义中国化”的重大命题。", ans: true, exp: "正确。1938年六届六中全会首提马克思主义中国化。" } },
+      { id: "m12", kind: "meeting", order: 1945.041, year: "1945", title: "六届七中全会", tag: "第一个历史决议", linkIds: ["w17", "m13"], linkNote: "延安整风（《改造我们的学习》等）后，六届七中全会通过第一个历史决议，为七大召开奠定思想基础。", core: "原则通过《{{关于若干历史问题的决议}}》（党的{{第一个历史决议}}）；清算历次“左”右倾特别是王明“左”倾教条主义。", sec: "标志延安整风胜利结束。", trap: "第二个历史决议为1981十一届六中全会《关于建国以来党的若干历史问题的决议》。", q: { stem: "六届七中全会通过了《关于建国以来党的若干历史问题的决议》。", ans: false, exp: "错误。“建国以来”属1981年十一届六中全会。" } },
+      { id: "m13", kind: "meeting", order: 1945.042, year: "1945", title: "中共七大", tag: "毛泽东思想写入党章", linkIds: ["w20", "m14"], linkNote: "七大上毛泽东作《论联合政府》政治报告，大会将毛泽东思想写入党章确立为指导思想。", core: "将{{毛泽东思想}}写入党章并确立为党的指导思想；制定建立{{新民主主义中国}}政治路线；概括党的{{三大优良作风}}。", sec: "毛泽东作《论联合政府》政治报告。", trap: "勿混“三大优良作风”与1939《发刊词》“三大法宝”。", q: { stem: "中共七大将毛泽东思想写入党章并确立为党的指导思想。", ans: true, exp: "正确。这是中共七大核心贡献。" } },
+      { id: "m14", kind: "meeting", order: 1949.03, year: "1949", title: "七届二中全会", tag: "工作重心转城·两个务必", linkIds: ["w22", "m15"], linkNote: "七届二中全会描绘新中国蓝图并提出“两个务必”，6月《论人民民主专政》阐明国体，9月一届政协正式建国。", core: "工作重心由{{乡村转移到城市}}；提出“{{两个务必}}”；提出由农业国转变为工业国、由新民主主义转变为社会主义总任务。", sec: "分析五种经济成分；规定全国胜利后基本政策。", trap: "提出的是“两个务必”（二十大为“三个务必”）。", q: { stem: "党的七届二中全会提出了“三个务必”的政治要求。", ans: false, exp: "错误。七届二中全会提出“两个务必”，二十大提出“三个务必”。" } },
+      { id: "m15", kind: "meeting", order: 1949.09, year: "1949", title: "中国人民政治协商会议第一届全体会议", tag: "通过共同纲领", linkIds: ["w22", "m16"], linkNote: "一届政协将《论人民民主专政》阐明的国体原则载入《共同纲领》，代行全国人大职权。", core: "通过《{{共同纲领}}》（起{{临时宪法}}作用）；选举中央人民政府委员会；标志{{多党合作和政治协商制度}}正式确立。", sec: "确定国名、国都、纪年、国旗、代国歌。", trap: "《共同纲领》非第一部社会主义类型宪法（1954年宪法为第一部）。", q: { stem: "一届政协通过的《共同纲领》是新中国第一部社会主义类型的宪法。", ans: false, exp: "错误。《共同纲领》起临时宪法作用，第一部社会主义类型宪法是1954年宪法。" } },
+      { id: "m16", kind: "meeting", order: 1950.06, year: "1950", title: "七届三中全会", tag: "财政经济基本好转", linkIds: ["m15", "w23"], linkNote: "建国初期七届三中全会聚焦国民经济恢复（不要四面出击），1956《论十大关系》开启社会主义建设探索。", core: "国民经济恢复时期任务是争取国家{{财政经济状况基本好转}}；提出{{三个条件}}；提出“{{不要四面出击}}”战略策略方针。", sec: "毛泽东作《为争取国家财政经济状况的基本好转而斗争》报告。", trap: "过渡时期总路线提出于1953年。", q: { stem: "七届三中全会提出了“不要四面出击”的战略策略方针。", ans: true, exp: "正确。1950年七届三中全会提出“不要四面出击”。" } },
+      { id: "m17", kind: "meeting", order: 1956.09, year: "1956", title: "中共八大", tag: "社会主义主要矛盾论断", linkIds: ["w23", "w24"], linkNote: "4月《论十大关系》开启探索，9月八大正确分析主要矛盾，次年2月《正处》系统阐述两类矛盾学说。", core: "指出{{社会主义制度}}基本建立；分析国内{{主要矛盾}}；主要任务是集中力量{{发展社会生产力}}；陈云提出“{{三个主体、三个补充}}”。", sec: "经济方针：既反保守又反冒进，在综合平衡中稳步前进。", trap: "“社会主义初级阶段”概念首提于1981十一届六中全会。", q: { stem: "中共八大首次提出了我国处于“社会主义初级阶段”的科学论断。", ans: false, exp: "错误。“社会主义初级阶段”概念首提于1981年十一届六中全会。" } },
+      { id: "m18", kind: "meeting", order: 1978.12, year: "1978", title: "十一届三中全会", tag: "改革开放伟大转折", linkIds: ["m19", "m20"], linkNote: "十一届三中全会开启改革开放，十一届六中全会完成指导思想拨乱反正，十二大提出建设有中国特色社会主义。", core: "重新确立{{解放思想、实事求是}}思想路线；停止“以阶级斗争为纲”，工作重点转移到{{社会主义现代化建设}}；作出{{改革开放}}决策。", sec: "形成以邓小平为核心的第二代中央领导集体。", trap: "指导思想拨乱反正胜利完成标志为1981十一届六中全会。", q: { stem: "十一届三中全会标志着党在指导思想上的拨乱反正胜利完成。", ans: false, exp: "错误。完成标志是1981年十一届六中全会。" } },
+      { id: "m19", kind: "meeting", order: 1981.06, year: "1981", title: "十一届六中全会", tag: "第二个历史决议", linkIds: ["m12", "m18"], linkNote: "与1945六届七中全会第一个历史决议前后呼应，科学评价毛泽东和毛泽东思想历史地位。", core: "通过《{{关于建国以来党的若干历史问题的决议}}》（第二个历史决议）；科学评价{{毛泽东和毛泽东思想}}；标志{{指导思想上的拨乱反正胜利完成}}。", sec: "首次提出我国处于“初级阶段”；概括毛泽东思想活的灵魂。", trap: "系统阐述初级阶段理论在1987十三大。", q: { stem: "十一届六中全会通过第二个历史决议，标志着党在指导思想上的拨乱反正胜利完成。", ans: true, exp: "正确。十一届六中全会完成指导思想拨乱反正。" } },
+      { id: "m20", kind: "meeting", order: 1982.09, year: "1982", title: "中共十二大", tag: "首提中国特色社会主义", linkIds: ["m18", "m22"], linkNote: "十二大首提“建设有中国特色的社会主义”主题，十三大系统阐述社会主义初级阶段理论与基本路线。", core: "邓小平开幕词首次正式提出“{{建设有中国特色的社会主义}}”重大命题，成为全部理论和实践主题。", sec: "提出全面开创社会主义现代化建设新局面。", trap: "“一个中心、两个基本点”完整概括在1987十三大。", q: { stem: "邓小平在中共十二大开幕词中首次正式提出“建设有中国特色的社会主义”重大命题。", ans: true, exp: "正确。1982年中共十二大确立全部理论和实践主题。" } },
+      { id: "m21", kind: "meeting", order: 1984.10, year: "1984", title: "十二届三中全会", tag: "有计划的商品经济", linkIds: ["m24", "m25"], linkNote: "改革定性三步跃升：十二届三中“有计划商品经济”→十四大“市场经济目标”→十四届三中“基本框架”。", core: "确认我国社会主义经济是“{{公有制基础上的有计划的商品经济}}”；改革重点从{{农村转向城市}}。", sec: "增强企业活力是经济体制改革中心环节。", trap: "市场经济体制改革目标确立于1992十四大。", q: { stem: "十二届三中全会首次明确提出建立社会主义市场经济体制的改革目标。", ans: false, exp: "错误。十二届三中全会提出“有计划的商品经济”。" } },
+      { id: "m22", kind: "meeting", order: 1987.10, year: "1987", title: "中共十三大", tag: "初级阶段理论与基本路线", linkIds: ["m19", "m20"], linkNote: "承接十一届六中全会“初级阶段”提法与十二大主题，系统阐述初级阶段理论与“三步走”战略。", core: "系统阐述{{社会主义初级阶段理论}}；完整概括“{{一个中心、两个基本点}}”基本路线；提出“{{三步走}}”战略。", sec: "首次概括中特理论轮廓。", trap: "邓小平理论写入党章在1997十五大。", q: { stem: "中共十三大完整概括了党在社会主义初级阶段“一个中心、两个基本点”的基本路线。", ans: true, exp: "正确。这是中共十三大核心考点。" } },
+      { id: "m23", kind: "meeting", order: 1992.01, year: "1992", title: "南方谈话", tag: "社会主义本质·计划市场都是手段", linkIds: ["m24", "m26"], linkNote: "南方谈话打破姓“资”姓“社”束缚，直接推动同年10月十四大确立社会主义市场经济体制目标。", core: "阐明{{社会主义本质}}；指出{{计划和市场都是经济手段}}；提出“{{三个有利于}}”标准和“发展才是硬道理”。", sec: "推动改革开放进入新阶段。", trap: "确立市场经济体制目标的正式会议是同年10月中共十四大。", q: { stem: "邓小平在南方谈话中指出，计划经济等于社会主义，市场经济等于资本主义。", ans: false, exp: "错误。计划和市场都是经济手段。" } },
+      { id: "m24", kind: "meeting", order: 1992.10, year: "1992", title: "中共十四大", tag: "确立市场经济体制目标", linkIds: ["m23", "m25"], linkNote: "吸收南方谈话精髓确立市场经济目标，次年十四届三中全会勾画基本框架。", core: "明确经济体制改革目标是建立{{社会主义市场经济体制}}；确立邓小平建设有中国特色社会主义理论在全党指导地位。", sec: "形成以江泽民为核心的第三代中央领导集体。", trap: "正式使用“邓小平理论”并写入党章在1997十五大。", q: { stem: "中共十四大将“邓小平理论”正式命名并写入党章确立为指导思想。", ans: false, exp: "错误。正式命名“邓小平理论”并写入党章的是1997年中共十五大。" } },
+      { id: "m25", kind: "meeting", order: 1993.11, year: "1993", title: "十四届三中全会", tag: "勾画市场经济基本框架", linkIds: ["m24", "m29"], linkNote: "十四届三中全会搭起市场经济基本框架，2013十八届三中全会进一步明确市场起“决定性作用”。", core: "勾画{{社会主义市场经济体制基本框架}}，使十四大目标具体化；明确建立{{现代企业制度}}是国企改革方向。", sec: "通过《关于建立社会主义市场经济体制若干问题的决定》。", trap: "市场“决定性作用”在2013十八届三中全会。", q: { stem: "十四届三中全会勾画了社会主义市场经济体制的基本框架，明确了现代企业制度方向。", ans: true, exp: "正确。十四届三中全会勾画市场经济体制基本框架。" } },
+      { id: "m26", kind: "meeting", order: 1997.09, year: "1997", title: "中共十五大", tag: "邓小平理论写入党章", linkIds: ["m23", "m27"], linkNote: "十五大确立基本经济制度，十六大进一步提出“两个毫不动摇”。", core: "正式使用“{{邓小平理论}}”并写入党章；确立{{公有制为主体、多种所有制经济共同发展}}为基本经济制度；提出{{依法治国}}基本方略。", sec: "明确非公有制经济是社会主义市场经济重要组成部分。", trap: "“两个毫不动摇”首提于2002十六大。", q: { stem: "中共十五大确立公有制为主体、多种所有制经济共同发展为基本经济制度，并提出依法治国。", ans: true, exp: "正确。这是中共十五大核心考点。" } },
+      { id: "m27", kind: "meeting", order: 2002.11, year: "2002", title: "中共十六大", tag: "三个代表写入党章·全面建设小康", linkIds: ["m26", "m28"], linkNote: "十六大提出全面“建设”小康社会，十八大升级为全面“建成”小康社会。", core: "将“{{三个代表}}”重要思想写入党章；提出{{全面建设小康社会}}目标；首次提出“{{两个毫不动摇}}”。", sec: "提出本世纪头二十年重要战略机遇期。", trap: "十六大是全面“建设”小康社会，十八大改为全面“建成”小康社会。", q: { stem: "中共十六大明确提出了“全面建成小康社会”的奋斗目标。", ans: false, exp: "错误。十六大是全面“建设”，十八大改为全面“建成”。" } },
+      { id: "m28", kind: "meeting", order: 2012.11, year: "2012", title: "中共十八大", tag: "科学发展观·五位一体", linkIds: ["m27", "m29"], linkNote: "十八大开启新时代并确立“五位一体”总体布局，次年十八届三中全会开启全面深化改革。", core: "将{{科学发展观}}确立为党的指导思想；提出{{全面建成小康社会}}；确立“{{五位一体}}”总体布局（增生态文明）；倡导24字{{社会主义核心价值观}}。", sec: "中国特色社会主义进入新时代的历史起点。", trap: "新思想写入党章在2017十九大。", q: { stem: "中共十八大确立了“五位一体”总体布局，并将科学发展观确立为党的指导思想。", ans: true, exp: "正确。十八大新增生态文明确立“五位一体”。" } },
+      { id: "m29", kind: "meeting", order: 2013.11, year: "2013", title: "十八届三中全会", tag: "全面深化改革·市场决定性作用", linkIds: ["m25", "m32"], linkNote: "十八届三中全会开启全面深化改革（市场决定性作用），2024二十届三中全会部署进一步全面深化改革。", core: "提出全面深化改革总目标（完善中特制度、推进{{国家治理体系和治理能力现代化}}）；首次提出市场在资源配置中起“{{决定性作用}}”。", sec: "开启新时代全面深化改革新征程。", trap: "市场作用由“基础性”改为“决定性”；“进一步全面深化改革”属2024二十届三中全会。", q: { stem: "十八届三中全会首次提出使市场在资源配置中起“基础性作用”。", ans: false, exp: "错误。改为“决定性作用”。" } },
+      { id: "m30", kind: "meeting", order: 2017.10, year: "2017", title: "中共十九大", tag: "新时代·主要矛盾转化·新思想入党章", linkIds: ["m28", "m31"], linkNote: "十九大确立新思想为指导思想并作出“两步走”安排，二十大系统阐述中国式现代化与“六个必须坚持”。", core: "将{{习近平新时代中国特色社会主义思想}}写入党章；作出中国特色社会主义{{进入新时代}}论断；指出主要矛盾转化为人民美好生活需要同{{不平衡不充分的发展}}之间矛盾。", sec: "作出“两步走”战略安排。", trap: "中国式现代化五个中国特色与本质要求系统阐述在2022二十大。", q: { stem: "中共十九大指出我国社会主要矛盾已转化为人民日益增长的美好生活需要和不平衡不充分的发展之间的矛盾。", ans: true, exp: "正确。这是中共十九大重大政治论断。" } },
+      { id: "m31", kind: "meeting", order: 2022.10, year: "2022", title: "中共二十大", tag: "中国式现代化·六个必须坚持", linkIds: ["m14", "m32"], linkNote: "二十大将七届二中全会“两个务必”升华为“三个务必”，并开启以中国式现代化推进复兴的新征程。", core: "明确中心任务（以{{中国式现代化}}全面推进中华民族伟大复兴）；阐明“{{两个结合}}”与“{{六个必须坚持}}”；提出“{{三个务必}}”。", sec: "高质量发展是首要任务；教育科技人才是基础性、战略性支撑。", trap: "“两个务必”属七届二中全会，二十大为“三个务必”。", q: { stem: "中共二十大深刻阐述了“六个必须坚持”的世界观和方法论，并提出了“三个务必”。", ans: true, exp: "正确。这是中共二十大核心理论创新。" } },
+      { id: "m32", kind: "meeting", order: 2024.07, year: "2024", title: "二十届三中全会", tag: "进一步全面深化改革·2029完成", linkIds: ["m29", "m31"], linkNote: "围绕二十大中国式现代化中心任务，对进一步全面深化改革作出系统部署。", core: "通过《关于{{进一步全面深化改革}}、推进中国式现代化的决定》；提出“{{七个聚焦}}”与“{{六个坚持}}”；明确到{{2029年}}完成本决定改革任务。", sec: "以经济体制改革为牵引；2035年全面建成高水平社会主义市场经济体制。", trap: "完成本决定改革任务节点为2029年（非2035年）。", q: { stem: "二十届三中全会明确到2035年完成本《决定》提出的全部改革任务。", ans: false, exp: "错误。明确到2029年完成本决定改革任务。" } },
+
+      // ---- 25 毛著 ----
+      { id: "w01", kind: "work", order: 1925.12, year: "1925", title: "《中国社会各阶级的分析》", tag: "萌芽起点·首辨敌友", linkIds: ["m04", "w02"], linkNote: "回应中共四大提出的无产阶级领导权与工农联盟问题，科学分析各阶级地位。", core: "指出分清敌友是革命的{{首要问题}}；阐明{{无产阶级领导权}}与{{农民同盟军}}思想；工业无产阶级是领导力量，贫农是最接近的朋友。", sec: "区分民族资产阶级两面性与买办官僚资产阶级。", trap: "“农民问题乃国民革命的中心问题”出自1926《国民革命与农民运动》。", q: { stem: "《中国社会各阶级的分析》指出分清敌友是革命的首要问题，阐明了无产阶级领导权与农民同盟军。", ans: true, exp: "正确。这是1925年该文核心论断。" } },
+      { id: "w02", kind: "work", order: 1926.09, year: "1926", title: "《国民革命与农民运动》", tag: "农民中心论", linkIds: ["w01", "w03"], linkNote: "上承阶级分析，下启1927《湖南农民运动考察报告》，突出农民运动核心地位。", core: "明确指出“{{农民问题乃国民革命的中心问题}}”；农民不起来参加并拥护国民革命，国民革命不会成功。", sec: "强调农村革命对推翻帝国主义和封建军阀的决定性意义。", trap: "赞扬农民运动“好得很”出自1927《湖南农民运动考察报告》。", q: { stem: "毛泽东在《国民革命与农民运动》中明确指出“农民问题乃国民革命的中心问题”。", ans: true, exp: "正确。该文核心论断即农民问题乃国民革命的中心问题。" } },
+      { id: "w03", kind: "work", order: 1927.03, year: "1927", title: "《湖南农民运动考察报告》", tag: "农民运动“好得很”", linkIds: ["w02", "m05"], linkNote: "大革命危机关头回应党内外对农民运动的指责，主张放手发动群众、建立农民政权和武装。", core: "赞扬农民运动“{{好得很}}”；主张建立{{农民政权}}和{{农民武装}}，放手发动群众、组织群众、依靠群众。", sec: "总结湖南农民运动十四件大事。", trap: "“政权是由枪杆子中取得的”提出于同年8月八七会议。", q: { stem: "毛泽东在《湖南农民运动考察报告》中首次提出“政权是由枪杆子中取得的”论断。", ans: false, exp: "错误。“枪杆子里面出政权”提出于1927年8月八七会议。" } },
+      { id: "w04", kind: "work", order: 1928.10, year: "1928", title: "《中国的红色政权为什么能够存在？》《井冈山的斗争》", tag: "工农武装割据", linkIds: ["m06", "w05"], linkNote: "井冈山时期两篇著作提出“工农武装割据”，1930《星星之火，可以燎原》进一步提出“以乡村为中心”。", core: "提出“{{工农武装割据}}”思想（武装斗争、土地革命、根据地建设结合）；红色政权存在根本原因是{{近代中国政治经济发展极不平衡}}。", sec: "提出红色政权存在发展的五个条件。", trap: "“以乡村为中心”思想提出于1930.1《星星之火，可以燎原》。", q: { stem: "《中国的红色政权为什么能够存在？》指出红色政权存在的根本原因是近代中国政治经济发展极不平衡。", ans: true, exp: "正确。政治经济发展极不平衡是根本原因。" } },
+      { id: "w05", kind: "work", order: 1930.01, year: "1930.1", title: "《星星之火，可以燎原》", tag: "道路理论初步形成", linkIds: ["w04", "w06"], linkNote: "突破“城市中心论”提出“以乡村为中心”，标志毛泽东思想初步形成。", core: "批评“红旗到底打得多久”悲观思想；提出“{{以乡村为中心}}”思想，标志{{毛泽东思想初步形成}}。", sec: "阐明红军、游击队和红色区域建立发展促进革命高潮。", trap: "“没有调查，没有发言权”出自同年5月《反对本本主义》。", q: { stem: "《星星之火，可以燎原》提出“以乡村为中心”的思想，标志着毛泽东思想的初步形成。", ans: true, exp: "正确。1930年1月该文标志毛泽东思想初步形成。" } },
+      { id: "w06", kind: "work", order: 1930.05, year: "1930.5", title: "《反对本本主义》", tag: "思想路线初提", linkIds: ["w05", "w09"], linkNote: "首次提出“思想路线”概念，后来《实践论》《矛盾论》从哲学高度系统论证这一思想路线。", core: "提出“{{没有调查，没有发言权}}”；首次提出“{{思想路线}}”概念；初步阐明实事求是、群众路线、独立自主基本思想。", sec: "批判党内教条主义，提出“本本主义”概念。", trap: "对“实事求是”作出马克思主义科学界定在1941.5《改造我们的学习》。", q: { stem: "《反对本本主义》首次对“实事求是”作出了马克思主义的科学界定。", ans: false, exp: "错误。首次科学界定在1941年《改造我们的学习》。" } },
+      { id: "w07", kind: "work", order: 1935.122, year: "1935.12", title: "《论反对日本帝国主义的策略》", tag: "瓦窑堡会议理论阐发", linkIds: ["m09", "w11"], linkNote: "瓦窑堡会议后作此报告，阐明抗日民族统一战线政策，解决党的政治路线问题。", core: "系统阐明党的{{抗日民族统一战线}}策略方针；批判“左”倾{{关门主义}}；阐明将“工农共和国”改为“{{人民共和国}}”依据。", sec: "分析日本侵华后国内阶级关系新变动。", trap: "第二次国共合作正式形成标志为1937年9月公布国共合作宣言。", q: { stem: "《论反对日本帝国主义的策略》系统阐明了抗日民族统一战线策略方针，批判了“左”倾关门主义。", ans: true, exp: "正确。该报告系统阐发瓦窑堡会议政治路线。" } },
+      { id: "w08", kind: "work", order: 1936.12, year: "1936.12", title: "《中国革命战争的战略问题》", tag: "土地革命军事总结", linkIds: ["m08", "w11"], linkNote: "遵义会议纠正军事错误后，系统总结土地革命战争经验，阐明中国革命战争四个特点。", core: "阐明中国革命战争{{四个特点}}与{{积极防御}}战略方针，总结土地革命战争经验。", sec: "批判“左”倾军事教条主义。", trap: "抗战“战略防御、相持、反攻”三阶段预见出自1938.5《论持久战》。", q: { stem: "《中国革命战争的战略问题》科学预见了抗日战争将经过战略防御、相持、反攻三个阶段。", ans: false, exp: "错误。抗战三阶段论出自1938年5月《论持久战》。" } },
+      { id: "w09", kind: "work", order: 1937.07, year: "1937.7", title: "《实践论》", tag: "哲学认识论奠基", linkIds: ["w06", "w10"], linkNote: "《实践论》与《矛盾论》并称“两论”，从哲学认识论和辩证法高度彻底清算教条主义根源。", core: "揭露教条主义和经验主义认识论根源；阐明{{实践是认识的基础}}及认识从感性到理性再到实践的辩证规律。", sec: "为实事求是思想路线奠定哲学认识论基础。", trap: "共性个性、绝对相对是矛盾问题精髓出自同年8月《矛盾论》。", q: { stem: "《实践论》从认识论高度揭露教条主义根源，阐明了实践是认识的基础及认识辩证发展规律。", ans: true, exp: "正确。《实践论》系统阐述马克思主义认识论。" } },
+      { id: "w10", kind: "work", order: 1937.081, year: "1937.8", title: "《矛盾论》", tag: "唯物辩证法核心阐发", linkIds: ["w09", "w24"], linkNote: "《矛盾论》奠定一般矛盾学说，1957《正处》将其创造性运用于社会主义社会。", core: "阐明{{对立统一规律}}是唯物辩证法最根本规律；共性与个性、绝对与相对道理是矛盾问题{{精髓}}。", sec: "从唯物辩证法高度批判“左”倾教条主义形而上学。", trap: "社会主义社会基本矛盾非对抗性学说提出于1957.2《关于正确处理人民内部矛盾的问题》。", q: { stem: "《矛盾论》首次系统提出了社会主义社会基本矛盾是非对抗性矛盾的学说。", ans: false, exp: "错误。社会主义基本矛盾非对抗性学说提出于1957年《正处》。" } },
+      { id: "w11", kind: "work", order: 1938.05, year: "1938.5", title: "《论持久战》", tag: "抗战三阶段与兵民胜利之本", linkIds: ["m10", "w13"], linkNote: "落实洛川会议全面抗战路线，科学论证抗日持久战规律并预见三阶段进程。", core: "批驳“{{亡国论}}”和“{{速胜论}}”；预见抗战经{{战略防御、战略相持、战略反攻}}三阶段；提出“{{兵民是胜利之本}}”。", sec: "分析中日双方四个基本特点。", trap: "全面抗战路线与《抗日救国十大纲领》出自1937年8月洛川会议。", q: { stem: "《论持久战》批驳了亡国论和速胜论，预见抗战三阶段，并提出“兵民是胜利之本”。", ans: true, exp: "正确。这是《论持久战》核心考点。" } },
+      { id: "w12", kind: "work", order: 1938.102, year: "1938.10", title: "《论新阶段》", tag: "首提马克思主义中国化", linkIds: ["m11", "w16"], linkNote: "在六届六中全会上作此报告首提“马克思主义中国化”，随后《新民主主义论》等形成完整理论成果。", core: "毛泽东在{{六届六中全会}}政治报告；首次明确提出“{{马克思主义中国化}}”重大命题。", sec: "强调使马克思主义在中国具体化。", trap: "毛泽东思想写入党章确立为指导思想在1945中共七大。", q: { stem: "毛泽东在《论新阶段》报告中首次明确提出了“马克思主义中国化”的重大命题。", ans: true, exp: "正确。1938年六届六中全会《论新阶段》首提马克思主义中国化。" } },
+      { id: "w13", kind: "work", order: 1938.11, year: "1938.11", title: "《战争和战略问题》", tag: "道路理论成熟定型", linkIds: ["w05", "w11"], linkNote: "由1930《星星之火》初步形成，到1938《战争和战略问题》把游击战提到战略地位，标志道路理论成熟。", core: "指出中国革命中心任务和最高形式是{{武装夺取政权}}；把游击战争提到战略地位；标志道路理论成熟定型。", sec: "重申“枪杆子里面出政权”与党指挥枪原则。", trap: "“枪杆子里面出政权”首提于1927年八七会议。", q: { stem: "《战争和战略问题》首次提出了“政权是由枪杆子中取得的”著名论断。", ans: false, exp: "错误。首提在1927年八七会议。" } },
+      { id: "w14", kind: "work", order: 1939.10, year: "1939.10", title: "《〈共产党人〉发刊词》", tag: "三大法宝与伟大工程", linkIds: ["w15", "w16"], linkNote: "与《中国革命和中国共产党》《新民主主义论》构成新民主主义理论成熟三大标志文献。", core: "首次提出{{统一战线、武装斗争、党的建设}}是三大法宝；把党的建设称为“{{伟大的工程}}”。", sec: "阐明统一战线、武装斗争与党组织关系。", trap: "勿混“三大法宝”与1945《论联合政府》“三大优良作风”。", q: { stem: "《〈共产党人〉发刊词》首次概括了理论联系实际、密切联系群众、批评与自我批评三大优良作风。", ans: false, exp: "错误。《发刊词》提出“三大法宝”，三大优良作风出自1945《论联合政府》。" } },
+      { id: "w15", kind: "work", order: 1939.12, year: "1939.12", title: "《中国革命和中国共产党》", tag: "首提新民主主义革命概念", linkIds: ["w16", "w21"], linkNote: "1939首提“新民主主义革命”概念，1948《在晋绥干部会议上的讲话》把官僚资本主义列入总路线。", core: "首次明确提出“{{新民主主义革命}}”科学概念；指出认清{{中国国情}}是认清一切革命问题的基本根据。", sec: "明确民主主义革命与社会主义革命“两步走”。", trap: "总路线完整表述（含官僚资本主义）在1948.4《在晋绥干部会议上的讲话》。", q: { stem: "《中国革命和中国共产党》首次明确提出了“新民主主义革命”的科学概念。", ans: true, exp: "正确。1939年12月该文首提“新民主主义革命”概念。" } },
+      { id: "w16", kind: "work", order: 1940.01, year: "1940.1", title: "《新民主主义论》", tag: "毛泽东思想成熟标志", linkIds: ["w14", "w15"], linkNote: "系统阐述新民主主义政治、经济、文化三大纲领，标志新民主主义理论完整形成和毛泽东思想成熟。", core: "系统阐述新民主主义{{政治、经济、文化纲领}}；指明前途是社会主义；标志新民主主义理论完整形成、{{毛泽东思想成熟}}。", sec: "阐明民族的、科学的、大众的新民主主义文化。", trap: "首提“新民主主义革命”概念在1939.12《中国革命和中国共产党》。", q: { stem: "《新民主主义论》系统阐述了新民主主义政治、经济、文化纲领，标志着毛泽东思想的成熟。", ans: true, exp: "正确。1940年《新民主主义论》标志毛泽东思想成熟。" } },
+      { id: "w17", kind: "work", order: 1941.05, year: "1941.5", title: "《改造我们的学习》", tag: "整风开端·实事求是科学界定", linkIds: ["w18", "m12"], linkNote: "延安整风三篇基本文献之一（改造学风），首次对“实事求是”作出马克思主义科学解释。", core: "首次对“{{实事求是}}”作出马克思主义科学解释；标志延安整风在高级干部中开始。", sec: "批判主观主义，提倡理论联系实际。", trap: "全党范围整风普遍展开标志为1942.2《整顿党的作风》。", q: { stem: "《改造我们的学习》首次对“实事求是”作出了马克思主义的科学解释。", ans: true, exp: "正确。1941年5月该文对实事求是作出科学界定。" } },
+      { id: "w18", kind: "work", order: 1942.021, year: "1942.2", title: "《整顿党的作风》", tag: "全党整风普遍展开", linkIds: ["w17", "w19"], linkNote: "与《改造我们的学习》《反对党八股》共同构成延安整风运动三篇基本文献。", core: "反主观主义整学风、反宗派主义整党风、反党八股整文风，以{{反对主观主义}}为最主要任务；方针为“{{惩前毖后、治病救人}}”。", sec: "标志延安整风在全党普遍展开。", trap: "首次科学界定“实事求是”在1941.5《改造我们的学习》。", q: { stem: "《整顿党的作风》提出延安整风的方针是“惩前毖后、治病救人”，中心任务是反对主观主义。", ans: true, exp: "正确。这是《整顿党的作风》必背核心。" } },
+      { id: "w19", kind: "work", order: 1942.022, year: "1942.2", title: "《反对党八股》", tag: "整顿文风", linkIds: ["w18", "w17"], linkNote: "直指主观主义和宗派主义的表现形式——党八股，倡导生动活泼新鲜有力的文风。", core: "揭露党八股八大罪状，指出党八股是主观主义和宗派主义的{{宣传工具和表现形式}}，主张生动活泼新鲜有力的文风。", sec: "构成延安整风基本文献。", trap: "延安整风中心任务是反对主观主义，非反对党八股。", q: { stem: "《反对党八股》指出反对党八股以整顿文风是延安整风运动的中心任务。", ans: false, exp: "错误。延安整风最主要任务是反对主观主义以整顿学风。" } },
+      { id: "w20", kind: "work", order: 1945.043, year: "1945.4", title: "《论联合政府》", tag: "七大报告·三大优良作风", linkIds: ["m13", "w14"], linkNote: "中共七大政治报告，首次概括党的三大优良作风，与七大将毛泽东思想写入党章相辅相成。", core: "中共七大政治报告；首次概括党的{{理论联系实际、密切联系群众、批评与自我批评}}三大优良作风；提出建立民主联合政府。", sec: "提出“全心全意为人民服务”根本宗旨。", trap: "勿混“三大优良作风”与1939“三大法宝”或1949“两个务必”。", q: { stem: "《论联合政府》首次概括了中国共产党的三大优良作风，并提出建立民主联合政府。", ans: true, exp: "正确。这是中共七大政治报告核心要点。" } },
+      { id: "w21", kind: "work", order: 1948.04, year: "1948.4", title: "《在晋绥干部会议上的讲话》", tag: "完整表述革命总路线", linkIds: ["w15", "m14"], linkNote: "在1939《中国革命和中国共产党》基础上加上“官僚资本主义”，完整表述新民主主义革命总路线。", core: "首次完整表述新民主主义革命总路线（含{{官僚资本主义}}）；完整提出{{土地改革总路线}}。", sec: "依靠贫农，团结中农，消灭封建剥削制度。", trap: "1939《中国革命和中国共产党》首提概念但未将官僚资本主义完整列入总路线。", q: { stem: "《在晋绥干部会议上的讲话》首次将官僚资本主义列入其中，完整表述了新民主主义革命总路线。", ans: true, exp: "正确。1948年4月该讲话首次完整表述两条总路线。" } },
+      { id: "w22", kind: "work", order: 1949.06, year: "1949.6", title: "《论人民民主专政》", tag: "建国理论纲领", linkIds: ["m14", "m15"], linkNote: "上承七届二中全会建国部署，下启一届政协《共同纲领》，系统阐明新中国国体与外交方针。", core: "阐明新中国国家性质是工人阶级领导、工农联盟为基础的{{人民民主专政}}，奠定建国理论基础。", sec: "民主与专政结合；提出“一边倒”外交方针。", trap: "通过《共同纲领》在1949.9一届政协。", q: { stem: "《论人民民主专政》正式通过了起临时宪法作用的《中国人民政治协商会议共同纲领》。", ans: false, exp: "错误。《共同纲领》通过于1949年9月一届政协。" } },
+      { id: "w23", kind: "work", order: 1956.04, year: "1956.4", title: "《论十大关系》", tag: "社会主义建设探索开端", linkIds: ["m17", "w24"], linkNote: "提出“以苏为鉴”独立探索社会主义建设道路，为同年9月中共八大作出重要理论准备。", core: "确立{{调动国内外一切积极因素}}为社会主义服务方针；“{{以苏为鉴}}”独立探索；标志探索社会主义建设道路{{良好开端}}。", sec: "前五条经济关系，后五条政治社会关系。", trap: "两类不同性质矛盾学说提出于1957.2《关于正确处理人民内部矛盾的问题》。", q: { stem: "《论十大关系》确立了调动一切积极因素为社会主义服务的基本方针，标志探索良好开端。", ans: true, exp: "正确。1956年4月《论十大关系》开启建设探索。" } },
+      { id: "w24", kind: "work", order: 1957.02, year: "1957.2", title: "《关于正确处理人民内部矛盾的问题》", tag: "社会主义矛盾学说", linkIds: ["w10", "w25"], linkNote: "承接《矛盾论》与中共八大，创立社会主义社会两类不同性质矛盾学说，7月《夏季形势》进一步提出“六又”目标。", core: "阐明社会主义基本矛盾是{{非对抗性}}矛盾；提出{{敌我矛盾与人民内部矛盾}}两类矛盾学说；方针为“{{团结—批评—团结}}”。", sec: "正确处理人民内部矛盾是国家政治生活主题。", trap: "社会主义社会基本矛盾是非对抗性矛盾，非对抗性。", q: { stem: "《关于正确处理人民内部矛盾的问题》指出社会主义社会的基本矛盾是对抗性矛盾。", ans: false, exp: "错误。社会主义基本矛盾是非对抗性矛盾。" } },
+      { id: "w25", kind: "work", order: 1957.07, year: "1957.7", title: "《一九五七年夏季的形势》", tag: "“六又”政治局面目标", linkIds: ["w24", "w23"], linkNote: "在《正处》基础上进一步概括社会主义民主政治建设的目标——造成“六又”政治局面。", core: "提出造成“{{又有集中又有民主，又有纪律又有自由，又有统一意志、又有个人心情舒畅、生动活泼}}”的政治局面（“六又”局面）。", sec: "强调正确处理党群关系与党内民主。", trap: "两类不同性质矛盾学说出自1957.2《关于正确处理人民内部矛盾的问题》。", q: { stem: "《一九五七年夏季的形势》提出了造成“又有集中又有民主……”的“六又”政治局面目标。", ans: true, exp: "正确。1957年7月该文提出“六又”政治局面。" } }
+    ];
+
+    /* ==========================================================================
+       2. TRACK B：2027时政20押（无任何机构名，拆解为微切片 + 75道单/多选题）
+       ========================================================================== */
+    const CA_TOPICS = [
+      {
+        id: "d01", area: "dom", code: "国内重点 01", title: "党的二十届五中全会与全面从严治党",
+        chips: ["跳出历史周期率两个答案：<strong>人民监督政府 + 自我革命</strong>", "根本性任务：<strong>增强党性</strong>", "根本组织原则：<strong>民主集中制</strong>", "关键：<strong>从严治吏</strong> ｜ 主体：<strong>党的各级组织</strong>", "长远之策/根本之策：<strong>加强党内法规制度建设</strong>"],
+        full: "审议通过《中共中央关于持之以恒推进全面从严治党若干重大问题的决定》；以党的政治建设为统领；有力举措是正风肃纪；基本方针是一体推进不敢腐不能腐不想腐；根本行为规范是党章；“牛鼻子”是管党治党责任制；自我革命重在治权；贯彻落实党中央重大决策部署是维护党中央权威和集中统一领导的根本要求。",
+        trap: "勿选“消除社会成员之间的收入差距”；主体是“党的各级组织”（不是纪委或党员个人）。"
+      },
+      {
+        id: "d02", area: "dom", code: "国内重点 02", title: "“十五五”开局与现代化产业体系",
+        chips: ["“十五五”定位：基本实现现代化<strong>夯实基础、全面发力的关键时期</strong>", "现代化产业体系骨干：<strong>先进制造业</strong>", "服务业优质高效发展基本路径：<strong>扩能提质</strong>", "未来产业速度广度深度取决于：<strong>科技突破程度</strong>"],
+        full: "规划编制坚持加强顶层设计和问计于民统一；现代化产业体系是现代化国家的物质技术基础，坚持智能化、绿色化、融合化方向；经济着力点放在实体经济上；服务业是经济发展“主动力”“主引擎”、科技创新“催化剂”、制造价值“倍增器”、就业“蓄水池”“稳定器”。",
+        trap: "培育未来产业不是“全面替代传统产业”；现代化基础设施是现代化产业体系的有机组成部分。"
+      },
+      {
+        id: "d03", area: "dom", code: "国内重点 03", title: "科技自立自强、两种创新融合与新质生产力",
+        chips: ["“十五五”科技定位：<strong>科技强国建设的关键攻坚期</strong>", "引领发展新质生产力的关键：<strong>科技创新和产业创新深度融合</strong>", "科学体系源头：<strong>基础研究</strong>", "新质生产力核心标志：<strong>全要素生产率大幅提升</strong>"],
+        full: "我国正从全球科技参与者、贡献者向开拓者、引领者加速转变；融合重点是构建企业主导、各主体协同的产学研融通创新体系；增加高质量科技供给是基础，强化企业创新主体地位是关键，促进科技成果转化应用是途径；发展新质生产力逻辑起点是创新，关键一招是改革，政府重点在“有所为、有所不为”。",
+        trap: "当前是“加速转变”，尚未“建成科技强国”；核心标志是“全要素生产率大幅提升”。"
+      },
+      {
+        id: "d04", area: "dom", code: "国内重点 04", title: "2026年重要法律",
+        chips: ["生态环境法典魂和纲：<strong>习近平生态文明思想</strong>", "民族团结之本 / 法律主线：<strong>中华民族共同体意识</strong>", "自然保护地体系主体：<strong>国家公园</strong>", "各级各类规划总遵循：<strong>国家发展规划</strong>"],
+        full: "生态环境法典是继民法典后我国第二部法典、世界第一部以“生态环境”命名的法典；民族团结进步促进法是新时代第一部民族领域专门法律、30多年来政治局会议研究的第一部法律案、第一部设置序言的法律，首次将习关于加强和改进民族工作重要思想写入法律；自然保护地体系以国家公园为主体、自然保护区为基础、各类自然公园为补充。",
+        trap: "自然保护地体系“主体”是国家公园（不是自然保护区）；生态环境法典是我国第二部法典。"
+      },
+      {
+        id: "d05", area: "dom", code: "国内重点 05", title: "建党105周年与树立和践行正确政绩观",
+        chips: ["105年铸就辉煌根本在于：<strong>无可比拟的优秀特质</strong>", "学习教育总要求：<strong>立党为公、为民造福、科学决策、真抓实干</strong>", "抓手：<strong>一体推进学查改</strong>", "起决定性作用：<strong>党性</strong> ｜ 最大政绩：<strong>为民造福</strong>"],
+        full: "党的六个优秀特质：矢志追求真理、深深植根人民、勇担历史使命、顺应发展潮流、敢于善于斗争、注重强健自身；把为民办事、为民造福作为最重要的政绩，把为老百姓办了多少好事实事作为检验政绩的重要标准。",
+        trap: "起决定性作用的是“党性”（不是考核机制或党纪）；记清总要求四词。"
+      },
+      {
+        id: "d06", area: "dom", code: "国内重点 06", title: "中央一号文件与农村基本经营制度",
+        chips: ["2026中央一号文件首次部署：<strong>常态化精准帮扶</strong>", "“三农”总抓手：<strong>推进乡村全面振兴</strong>", "“三农”引领：<strong>学习运用“千万工程”经验</strong>", "农业生产重中之重：<strong>保障粮食等重要农产品稳定供给</strong>"],
+        full: "常态化精准帮扶推动帮扶从阶段性安排向稳定性、规范性制度转型，长久守住不发生规模性返贫致贫底线；全面开展第二轮土地承包到期后再延长30年整省试点并完善三权分置，巩固完善农村基本经营制度、稳定农户承包权、保障农民集体成员权利。",
+        trap: "区分“总抓手”（乡村全面振兴）、“引领”（千万工程经验）、“重中之重”（保障粮食稳定供给）。"
+      },
+      {
+        id: "d07", area: "dom", code: "国内重点 07", title: "两岸关系与“一国两制”实践",
+        chips: ["守护共同家园根本在于：<strong>坚持“九二共识”、反对“台独”</strong>", "核心：<strong>认同两岸同属一个中国</strong>", "“一国两制”最高原则：<strong>维护国家主权、安全、发展利益</strong>", "香港首个五年规划：<strong>首份覆盖全领域中长期发展蓝图</strong>"],
+        full: "会见国民党主席郑丽文提出四点意见（心灵契合、和平发展、交流融合、团结奋斗）；发展两岸关系目标是让两岸同胞过上更美好生活；香港首个五年规划（2026-2030）是迈上由治及兴新阶段里程碑、完善行政主导提升治理效能重大举措。",
+        trap: "“一国两制”最高原则是维护国家主权、安全、发展利益（并非高度自治权）。"
+      },
+      {
+        id: "d08", area: "dom", code: "国内重点 08", title: "重大科技成就与重大工程",
+        chips: ["长征十号乙：<strong>我国首次一级可控回收 · 全球首次海上网系回收</strong>", "朱雀火箭：<strong>我国首次陆地回收</strong>（世界唯一掌握两类回收）", "平陆运河：<strong>新中国首条国家统筹通江达海运河</strong>"],
+        full: "长征十号乙与朱雀火箭海陆双捷标志我国重复使用火箭技术重大突破；平陆运河是西南地区运距最短、最经济的出海水运通道，对新时代西部大开发起基础性支撑作用，为中国和东盟互联互通注入新动能。",
+        trap: "海上网系回收是长征十号乙，陆地回收是朱雀火箭，不要张冠李戴。"
+      },
+      {
+        id: "d09", area: "dom", code: "国内重点 09", title: "新发展格局、全国统一大市场与扩大开放",
+        chips: ["构建新发展格局战略基点：<strong>扩大内需</strong>", "关键：<strong>经济循环畅通无阻</strong> ｜ 最本质特征：<strong>高水平自立自强</strong>", "全国统一大市场：<strong>“五统一、一开放”</strong>", "整治“内卷式”竞争：从“拼价格”转向<strong>“拼质量、拼创新”</strong>"],
+        full: "消费对经济发展起基础性作用，投资对优化供给结构起关键作用；以新需求引领新供给、新供给创造新需求；“五统一”即统一市场基础制度、基础设施、政府行为尺度、监管执法、要素资源市场。",
+        trap: "整治“内卷式”竞争绝不是“推动同行业企业实行统一售价”。"
+      },
+      {
+        id: "d10", area: "dom", code: "国内重点 10", title: "其他国内时政（雄安·双碳·普法·就业·健康）",
+        chips: ["雄安首要功能定位：<strong>北京非首都功能疏解集中承载地</strong>", "“双碳”关键：<strong>能源绿色低碳转型</strong>", "“十五五”就业着力点：<strong>破解结构性就业矛盾</strong>", "九五普法首要任务：<strong>推动习近平法治思想深入人心</strong>"],
+        full: "美丽中国建设以全面改善生态环境质量为主线、碳达峰碳中和为牵引；就业工作以高质量发展为基础、不发生规模性失业风险为底线；卫生与健康事业具有全局性、基础性作用，人民健康是社会主义现代化的重要标志。",
+        trap: "就业着力点=破解结构性就业矛盾；双碳关键=能源绿色低碳转型。"
+      },
+      {
+        id: "i01", area: "intl", code: "国际重点 01", title: "亚太经合组织深圳会议（APEC“中国年”）",
+        chips: ["2026 APEC主题：<strong>建设亚太共同体，促进共同繁荣</strong>", "三大优先领域：<strong>开放、创新、合作</strong>", "工商领导人峰会30年来首次：<strong>以倡议形式发布成果文件</strong>", "历史首次：<strong>中俄美三国元首面对面会晤</strong>", "大国交往基本准则：<strong>相互尊重</strong>"],
+        full: "中方支持成立世界湾区经济合作联盟（湾区经济具有开放性、协同性、外溢性）；《深圳倡议》四大优先领域为开放包容、创新增长、互联互通、合作共赢；《深圳展望》是APEC“中国年”最重要成果，搭建亚太共同体“四梁八柱”（经贸、联通、创新、发展支柱）。",
+        trap: "注意“中俄美三国最高领导人首次面对面会晤”与“大国交往基本准则是相互尊重”。"
+      },
+      {
+        id: "i02", area: "intl", code: "国际重点 02", title: "中美关系与元首外交",
+        chips: ["中美新定位：<strong>基于尊重、公平、对等的中美建设性战略稳定关系</strong>", "元首外交：中美关系的<strong>“定盘星”</strong>", "四个努力方向：<strong>合作为主、竞争有度、分歧可控、和平可期</strong>"],
+        full: "尊重包括彼此主权和领土完整、各自选择的社会制度和发展道路、对方核心利益和重大关切；扣好“第一粒纽扣”，树立正确战略认知。",
+        trap: "四个努力方向（合作为主、竞争有度、分歧可控、和平可期）多选常全选。"
+      },
+      {
+        id: "i03", area: "intl", code: "国际重点 03", title: "上合组织成立25周年与平等有序的世界多极化",
+        chips: ["25周年最重大成就：<strong>幅员最广、人口最多、潜力巨大新型区域合作组织</strong>", "最宝贵精神财富：<strong>“上海精神”</strong>", "最重要合作经验：<strong>不结盟、不对抗、不针对第三方</strong>", "推动多极化发展方向：<strong>互利共赢、普惠包容</strong>"],
+        full: "25周年四点要求：坚持发展优先、安全为要、以人为本、对话协商；平等有序世界多极化：主权平等、相互尊重是根本原则，均衡有序、遵守法治是必然要求，多边主义、对话协商是关键路径，互利共赢、普惠包容是发展方向。",
+        trap: "区分“最重大发展成就”（规模潜力）与“最宝贵精神财富”（上海精神）。"
+      },
+      {
+        id: "i04", area: "intl", code: "国际重点 04", title: "全球治理倡议与联合国",
+        chips: ["落实全球治理倡议最根本：<strong>坚定维护联合国权威和地位</strong>", "最关键：<strong>大国展现责任担当</strong> ｜ 最需要：<strong>各国团结合作</strong>", "最紧迫：<strong>弥补和平与发展赤字</strong>", "雄安论坛主题：<strong>重建信心与合作：百年变局与改革完善全球治理</strong>"],
+        full: "2026年是新中国恢复联合国合法席位55周年，联大第2758号决议确认体现的一个中国原则是国际关系基本准则和国际社会普遍共识。",
+        trap: "记清四个“最”：最根本（联合国）、最关键（大国）、最需要（团结合作）、最紧迫（和平发展赤字）。"
+      },
+      {
+        id: "i05", area: "intl", code: "国际重点 05", title: "金砖合作20周年与全球南方",
+        chips: ["金砖“四个先锋”：<strong>创新发展、和平稳定、文明互鉴、全球治理</strong>", "金砖力量之源：<strong>团结合作</strong>", "全球南方定位：<strong>世界大变局鲜明标志 · 推动多极化关键动力</strong>"],
+        full: "金砖国家成为最具影响力的新兴市场和发展中国家合作平台、联合自强典范，迈入“大金砖合作”高质量发展新阶段。",
+        trap: "全球南方群体性崛起是“推动世界多极化的关键动力”。"
+      },
+      {
+        id: "i06", area: "intl", code: "国际重点 06", title: "全球人工智能治理与世界数据组织",
+        chips: ["2026世界AI大会理念：<strong>以人为本、向上向善</strong>", "世界人工智能合作组织宗旨：<strong>促进人工智能国际合作和全球治理</strong>", "世界数据组织宗旨：<strong>弥合数据鸿沟、释放数据价值、繁荣数字经济</strong>"],
+        full: "世界人工智能合作组织在上海签署协定，是全球首个人工智能政府间国际组织，坚持向善普惠原则助力全球南方弥合智能鸿沟；AI治理四点意见：开放共赢、安全可控、文明互鉴、全球治理。",
+        trap: "世界数据组织宗旨不含“统一数据标准”，只选弥合鸿沟、释放价值、繁荣数字经济。"
+      },
+      {
+        id: "i07", area: "intl", code: "国际重点 07", title: "中东局势与巴勒斯坦问题",
+        chips: ["中东问题核心：<strong>巴勒斯坦问题</strong>", "解决原则：<strong>政治解决、“巴人治巴”、人道主义、公平正义</strong>", "中东和平稳定四原则：<strong>和平共处、国家主权、国际法治、统筹发展和安全</strong>", "处理中东事务基本遵循：<strong>《联合国宪章》和国际法</strong>"],
+        full: "构建中东安全新架构四点倡议：激发地区共同安全内生动力、推进综合治理、筑牢发展根基、增强国际协同。",
+        trap: "巴勒斯坦问题坚持“巴人治巴”，处理中东事务遵循《联合国宪章》和国际法。"
+      },
+      {
+        id: "i08", area: "intl", code: "国际重点 08", title: "中非开启外交关系70周年与中非合作",
+        chips: ["2026年5月1日起零关税：<strong>53个非洲建交国 + 所有建交最不发达国家</strong>", "全球首个：<strong>单方面、全覆盖零关税待遇的主要经济体</strong>", "中非人文交流年主题：<strong>夯实全天候友谊，共逐现代化梦想</strong>"],
+        full: "2026年为中非开启外交关系70周年，彰显中国以实际行动支持非洲与最不发达国家共享发展机遇。",
+        trap: "精准范围是“所有非洲建交国和所有建交的最不发达国家”（注意“建交”二字）。"
+      },
+      {
+        id: "i09", area: "intl", code: "国际重点 09", title: "大国外交（中俄·中朝·中欧）",
+        chips: ["中俄关系基础：<strong>平等相待、相互尊重、重信守义、合作共赢</strong>", "中朝关系最大优势：<strong>最高领导人战略引领</strong>", "中欧协同发展关键：<strong>求同存异、守正创新</strong>", "中欧经贸本质：<strong>优势互补、互利共赢</strong>"],
+        full: "2026年是中俄战略协作伙伴关系建立30周年、《中俄睦邻友好合作条约》签署25周年，也是《中朝友好合作互助条约》签订65周年；中欧彼此成就路径是相互尊重、互谅互让。",
+        trap: "中朝最大优势=最高领导人战略引领；中欧协同关键=求同存异、守正创新。"
+      },
+      {
+        id: "i10", area: "intl", code: "国际重点 10", title: "博鳌论坛·东盟3.0·东京审判·全球发展倡议",
+        chips: ["博鳌2026主题：<strong>塑造共同未来：新形势、新机遇、新合作</strong>", "东京审判（1946.5.3）：<strong>《开罗宣言》《波茨坦公告》规定的实施</strong>", "全球发展倡议5周年目的：<strong>推动国际发展合作、重振全球发展事业、落实2030议程</strong>", "中国—东盟自贸区3.0版：<strong>落实“十五五”高水平开放举措</strong>"],
+        full: "东京审判反映战胜国与受害者集体意志，践行《联合国宪章》宗旨原则，捍卫二战胜利成果。",
+        trap: "全球发展倡议5周年目的不含“加强国际人文交流合作”。"
+      }
+    ];
+
+    /* ==========================================================================
+       3. TRACK B 题库：75 道单/多选题（含 57 道核心原题 + 18 道高频补充题）
+       ========================================================================== */
+    const CA_QUESTIONS = [
+      // 国内 01
+      { id: "q01", topicId: "d01", type: "single", stem: "党的二十届五中全会提出，全面从严治党的根本性任务是", opts: { A: "正风肃纪", B: "增强党性", C: "从严治吏", D: "惩治腐败" }, ans: ["B"], exp: "根本性任务是增强党性；从严治吏是关键，正风肃纪是有力举措。" },
+      { id: "q02", topicId: "d01", type: "single", stem: "党的二十届五中全会指出，全面从严治党的主体是", opts: { A: "党员干部", B: "党的工作部门", C: "党的各级组织", D: "党的纪律检查机关" }, ans: ["C"], exp: "全面从严治党的主体是党的各级组织。" },
+      { id: "q03", topicId: "d01", type: "single", stem: "党的二十届五中全会指出，全面从严治党的长远之策、根本之策是", opts: { A: "驰而不息正风肃纪", B: "增强共产党人的党性", C: "贯彻执行民主集中制", D: "加强党内法规制度建设" }, ans: ["D"], exp: "加强党内法规制度建设是全面从严治党的长远之策、根本之策。" },
+      { id: "q04", topicId: "d01", type: "multi", stem: "习近平总书记指出，持之以恒推进全面从严治党，这是", opts: { A: "保持党的先进性和纯洁性、巩固党的长期执政地位的必然要求", B: "巩固和发展全党高度团结统一、党心军心民心高度凝聚良好政治局面的必然要求", C: "实现党的历史使命、推动党和国家事业行稳致远的必然要求", D: "消除社会成员之间的收入差距、实现全体人民共同富裕的必然要求" }, ans: ["A", "B", "C"], exp: "选ABC。“消除收入差距”不属于全面从严治党三个必然要求。" },
+      { id: "q05", topicId: "d01", type: "single", stem: "习近平总书记在二十届中央纪委五次全会上指出，维护党中央权威和集中统一领导的根本要求是", opts: { A: "科学有效地把权力关进制度笼子", B: "贯彻落实党中央重大决策部署", C: "清醒坚定地推进反腐败斗争", D: "不断提高监督执纪执法质效" }, ans: ["B"], exp: "贯彻落实党中央重大决策部署，是维护党中央权威和集中统一领导的根本要求。" },
+
+      // 国内 02
+      { id: "q06", topicId: "d02", type: "single", stem: "现代化产业体系的骨干是", opts: { A: "先进制造业", B: "现代服务业", C: "传统制造业", D: "绿色农业" }, ans: ["A"], exp: "现代化产业体系是现代化国家的物质技术基础，骨干是先进制造业。" },
+      { id: "q07", topicId: "d02", type: "single", stem: "促进服务业优质高效发展的基本路径是", opts: { A: "扩能提质", B: "改革攻坚", C: "科技赋能", D: "开放合作" }, ans: ["A"], exp: "促进服务业优质高效发展，扩能提质是基本路径。" },
+      { id: "q08", topicId: "d02", type: "multi", stem: "培育发展未来产业有利于", opts: { A: "抢占科技和产业制高点、把握发展主动权", B: "发展新质生产力、建设现代化产业体系", C: "提高人民生活品质、促进人的全面发展和社会全面进步", D: "推动未来产业全面替代传统产业" }, ans: ["A", "B", "C"], exp: "选ABC。未来产业不是“全面替代传统产业”。" },
+      { id: "q76", topicId: "d02", type: "multi", stem: "关于“十五五”时期及现代化产业体系建设，下列说法正确的有", opts: { A: "“十五五”时期是基本实现社会主义现代化夯实基础、全面发力的关键时期", B: "服务业是经济发展的“主动力”“主引擎”和就业的“蓄水池”“稳定器”", C: "未来产业发展速度、广度、深度很大程度上取决于科技突破的程度", D: "现代化基础设施不是现代化产业体系的组成部分" }, ans: ["A", "B", "C"], exp: "选ABC。现代化基础设施是现代化产业体系的有机组成部分。" },
+
+      // 国内 03
+      { id: "q09", topicId: "d03", type: "multi", stem: "党的十八大以来，我国科技事业取得历史性成就、发生历史性变革，具体包括", opts: { A: "正从全球科技参与者、贡献者向开拓者、引领者加速转变", B: "建成科技强国", C: "成为创新力上升最快的国家之一", D: "教育科技人才一体发展格局基本形成" }, ans: ["A", "C"], exp: "选AC。我国正处于加速转变期，“十五五”是科技强国建设的关键攻坚期。" },
+      { id: "q10", topicId: "d03", type: "single", stem: "以高水平科技自立自强引领发展新质生产力的关键是", opts: { A: "提高科技创新投入效能", B: "大力培养优秀青年科技人才", C: "推动科技创新和产业创新深度融合", D: "加强科技伦理和安全治理" }, ans: ["C"], exp: "关键是推动科技创新和产业创新深度融合。" },
+      { id: "q11", topicId: "d03", type: "single", stem: "在整个科学体系中，居于源头地位的是", opts: { A: "应用开发", B: "基础研究", C: "中试验证", D: "成果转化" }, ans: ["B"], exp: "基础研究是整个科学体系的源头，是所有技术问题的总机关。" },
+      { id: "q12", topicId: "d03", type: "single", stem: "《关于推动科技创新和产业创新深度融合的意见》要求，深入实施创新驱动发展战略，重点在于", opts: { A: "促进科技成果转化应用", B: "增加高质量科技供给", C: "强化企业科技创新主体地位", D: "构建企业主导、各主体协同的产学研融通创新体系" }, ans: ["D"], exp: "重点是构建企业主导、各主体协同的产学研融通创新体系。" },
+      { id: "q13", topicId: "d03", type: "single", stem: "新质生产力的核心标志是", opts: { A: "产业高端化、智能化、绿色化", B: "全要素生产率大幅提升", C: "技术革命性突破", D: "劳动者、劳动资料、劳动对象及其优化组合的跃升" }, ans: ["B"], exp: "新质生产力以全要素生产率大幅提升为核心标志。" },
+      { id: "q77", topicId: "d03", type: "single", stem: "发展新质生产力的逻辑起点和关键一招分别是", opts: { A: "创新、改革", B: "改革、开放", C: "科技、人才", D: "市场、法治" }, ans: ["A"], exp: "逻辑起点是创新，关键一招是改革。" },
+
+      // 国内 04
+      { id: "q14", topicId: "d04", type: "multi", stem: "民族团结进步促进法于2026年7月1日起施行。该法", opts: { A: "首次将习近平总书记关于加强和改进民族工作的重要思想写入法律", B: "首次从法理层面阐释铸牢中华民族共同体意识、推进中华民族共同体建设等核心概念", C: "首次在法律中明确新时代党的民族工作格局", D: "是新时代第一部民族领域的专门法律" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为民族团结进步促进法的核心地位与突破。" },
+      { id: "q15", topicId: "d04", type: "single", stem: "民族团结之本是", opts: { A: "民族区域自治制度", B: "中华民族共同体意识", C: "各民族共同繁荣发展", D: "民族平等原则" }, ans: ["B"], exp: "民族团结之本是中华民族共同体意识。" },
+      { id: "q16", topicId: "d04", type: "multi", stem: "编纂生态环境法典的重要意义体现在", opts: { A: "是深入贯彻习近平生态文明思想的生动实践", B: "是推进生态环境治理体系和治理能力现代化的有效路径", C: "是支撑高质量发展的关键举措", D: "是增进民生福祉的内在要求" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为编纂生态环境法典的重要意义。" },
+      { id: "q17", topicId: "d04", type: "single", stem: "我国自然保护地体系的主体是", opts: { A: "国家公园", B: "国家级风景名胜区", C: "自然保护区", D: "国家级湿地公园" }, ans: ["A"], exp: "自然保护地体系以国家公园为主体、自然保护区为基础、各类自然公园为补充。" },
+      { id: "q78", topicId: "d04", type: "single", stem: "关于生态环境法典与国家发展规划法，下列说法正确的是", opts: { A: "生态环境法典是我国第一部以“法典”命名的法律", B: "国家发展规划是其他各级各类规划的总遵循", C: "生态环境法典以民法典为魂和纲", D: "国家发展规划法取代了宪法" }, ans: ["B"], exp: "国家发展规划是其他各级各类规划的总遵循。" },
+      { id: "q79", topicId: "d04", type: "multi", stem: "关于民族团结进步促进法，下列说法正确的有", opts: { A: "是30多年来中共中央政治局会议研究的第一部法律案", B: "是30多年来第一部设置序言的法律", C: "要坚持增进共同性与尊重和包容差异性相统一", D: "不再保留各民族优秀传统文化" }, ans: ["A", "B", "C"], exp: "选ABC。传承各民族优秀传统文化有助于增进中华文化认同。" },
+
+      // 国内 05
+      { id: "q18", topicId: "d05", type: "single", stem: "在庆祝中国共产党成立105周年大会上，习近平总书记指出，历史和人民之所以选择中国共产党，根本在于我们党", opts: { A: "坚持用马克思主义基本原理分析把握历史大势", B: "具有其他政党和政治力量无可比拟的优秀特质", C: "统筹推进“五位一体”总体布局", D: "把党的建设作为一项伟大工程来推进" }, ans: ["B"], exp: "根本在于我们党具有其他政党和政治力量无可比拟的优秀特质。" },
+      { id: "q19", topicId: "d05", type: "multi", stem: "党中央部署在全党开展树立和践行正确政绩观学习教育，这次学习教育的总要求是", opts: { A: "立党为公", B: "为民造福", C: "科学决策", D: "真抓实干" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。立党为公、为民造福、科学决策、真抓实干。" },
+      { id: "q20", topicId: "d05", type: "single", stem: "树立和践行正确政绩观，起决定性作用的是", opts: { A: "党性", B: "党纪", C: "考核机制", D: "履职能力" }, ans: ["A"], exp: "起决定性作用的是党性；为民造福是最大政绩。" },
+      { id: "q80", topicId: "d05", type: "multi", stem: "关于树立和践行正确政绩观学习教育，下列说法正确的有", opts: { A: "学习教育的抓手是一体推进学查改", B: "把为民办事、为民造福作为最重要的政绩", C: "为民造福是最大政绩", D: "把为老百姓办了多少好事实事作为检验政绩的重要标准" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均符合学习教育核心要求。" },
+
+      // 国内 06
+      { id: "q21", topicId: "d06", type: "single", stem: "“三农”工作的引领是", opts: { A: "推进乡村全面振兴", B: "学习运用“千万工程”经验", C: "改革创新", D: "提高强农惠农富农政策效能" }, ans: ["B"], exp: "学习运用“千万工程”经验是引领，推进乡村全面振兴是总抓手。" },
+      { id: "q22", topicId: "d06", type: "multi", stem: "全面开展第二轮土地承包到期后再延长30年整省试点，并完善承包地“三权分置”政策体系，有利于", opts: { A: "巩固和完善农村基本经营制度", B: "探索和丰富农村土地集体所有制的有效实现形式", C: "稳定农户承包权", D: "保障和实现农民集体成员权利" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为二轮延包30年与完善三权分置的重要意义。" },
+      { id: "q23", topicId: "d06", type: "single", stem: "农业生产的重中之重是", opts: { A: "保障粮食等重要农产品稳定供给", B: "一体化推进乡村生态保护修复", C: "积极促进农民稳定增收", D: "推动城乡要素双向流动" }, ans: ["A"], exp: "保障粮食等重要农产品稳定供给是农业生产的重中之重。" },
+      { id: "q81", topicId: "d06", type: "multi", stem: "2026年中央一号文件首次系统性部署实施常态化精准帮扶，其意义在于", opts: { A: "推动帮扶工作从阶段性安排向稳定性、规范性制度转型", B: "为长久守住不发生规模性返贫致贫底线提供制度保障", C: "健全常态化帮扶政策体系、提高监测帮扶精准性时效性", D: "分层分类帮扶欠发达地区" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。常态化精准帮扶构建长效制度保障。" },
+
+      // 国内 07
+      { id: "q24", topicId: "d07", type: "single", stem: "两岸同胞要守护好、建设好共同家园，根本在于", opts: { A: "坚持“九二共识”、反对“台独”", B: "让两岸同胞过上更美好的生活", C: "坚定对中华文化的认同", D: "传承弘扬中华文化" }, ans: ["A"], exp: "根本在于坚持“九二共识”、反对“台独”，核心是认同两岸同属一个中国。" },
+      { id: "q25", topicId: "d07", type: "multi", stem: "《香港特别行政区经济和社会发展第一个五年规划(2026-2030年)》是", opts: { A: "特区政府坚持和完善行政主导、提升治理效能的重大举措", B: "主动对接国家发展战略、更好融入和服务国家发展大局的谋划需要", C: "香港回归祖国以来首份覆盖经济社会全领域的系统性中长期发展蓝图", D: "凝聚社会共识、团结各界力量，推动香港由治及兴、实现高质量发展的行动纲领" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为香港首个五年规划的重要定位与意义。" },
+      { id: "q26", topicId: "d07", type: "single", stem: "“一国两制”方针的最高原则是", opts: { A: "保持香港、澳门长期繁荣稳定", B: "保障特别行政区依法享有高度自治权", C: "维护国家主权、安全、发展利益", D: "“爱国者治港”“爱国者治澳”" }, ans: ["C"], exp: "“一国两制”方针的最高原则是维护国家主权、安全、发展利益。" },
+      { id: "q82", topicId: "d07", type: "multi", stem: "习近平总书记在会见中国国民党主席郑丽文时提出四点意见，包括", opts: { A: "以正确认同促进心灵契合", B: "以和平发展守护共同家园", C: "以交流融合增进民生福祉", D: "以团结奋斗实现中华民族伟大复兴" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。心灵契合、和平发展、交流融合、团结奋斗。" },
+
+      // 国内 08
+      { id: "q27", topicId: "d08", type: "multi", stem: "2026年7月10日，长征十号乙运载火箭首次发射回收任务取得圆满成功。此次突破及其意义包括", opts: { A: "我国首次成功实施运载火箭一级可控回收", B: "全球首次实现运载火箭海上网系回收", C: "我国重复使用火箭技术取得重大突破", D: "为加快提升我国进出空间能力奠定坚实基础" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。长征十号乙实现我国首次一级可控回收与全球首次海上网系回收。" },
+      { id: "q28", topicId: "d08", type: "multi", stem: "作为西部陆海新通道骨干工程、加快建设交通强国的标志性工程，平陆运河", opts: { A: "是西南地区运距最短、最经济的出海水运通道", B: "是新中国成立以来第一条国家层面统筹建设的通江达海运河", C: "对新时代西部大开发起到基础性的支撑作用", D: "为中国和东盟加强互联互通、高质量共建“一带一路”注入新动能" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为平陆运河的核心定位与意义。" },
+      { id: "q83", topicId: "d08", type: "single", stem: "2026年我国在运载火箭回收领域取得海陆双捷，其中实现我国首次陆地回收的是", opts: { A: "长征十号乙", B: "朱雀火箭", C: "神舟飞船", D: "天舟货船" }, ans: ["B"], exp: "长征十号乙是海上网系回收，朱雀火箭是陆地回收。" },
+
+      // 国内 09
+      { id: "q29", topicId: "d09", type: "single", stem: "加快构建新发展格局，必须坚持的战略基点是", opts: { A: "扩大内需", B: "深化供给侧结构性改革", C: "畅通国民经济循环", D: "实现高水平的自立自强" }, ans: ["A"], exp: "战略基点是扩大内需，关键是经济循环畅通无阻。" },
+      { id: "q30", topicId: "d09", type: "multi", stem: "深入整治“内卷式”竞争，有利于", opts: { A: "充分激发各类经营主体活力", B: "引导市场竞争从“拼价格”转向“拼质量、拼创新”的良性轨道", C: "推动同行业企业实行统一售价", D: "打通制约实体经济提质增效、国内循环畅通无阻的关键堵点" }, ans: ["A", "B", "D"], exp: "选ABD。C项“实行统一售价”错误。" },
+      { id: "q84", topicId: "d09", type: "multi", stem: "纵深推进全国统一大市场建设要坚持“五统一、一开放”，其中包括", opts: { A: "统一市场基础制度与市场基础设施", B: "统一政府行为尺度与市场监管执法", C: "统一要素资源市场", D: "持续扩大对内对外开放" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。“五统一、一开放”核心内容。" },
+
+      // 国内 10
+      { id: "q31", topicId: "d10", type: "single", stem: "雄安新区的首要功能定位是", opts: { A: "京津冀区域国际交往中心", B: "北京非首都功能疏解集中承载地", C: "全国先进制造研发基地", D: "北方国际航运核心区" }, ans: ["B"], exp: "雄安新区首要功能定位是北京非首都功能疏解集中承载地。" },
+      { id: "q32", topicId: "d10", type: "single", stem: "实现碳达峰碳中和的关键是", opts: { A: "健全绿色发展的保障体系", B: "产业低碳化", C: "能源绿色低碳转型", D: "推进自然保护地体系建设" }, ans: ["C"], exp: "能源绿色低碳转型是实现碳达峰碳中和的关键。" },
+      { id: "q33", topicId: "d10", type: "single", stem: "“十五五”时期，促进高质量充分就业的着力点是", opts: { A: "强化就业优先政策", B: "深化就业体制机制改革", C: "实施就业优先战略", D: "破解结构性就业矛盾" }, ans: ["D"], exp: "着力点是破解结构性就业矛盾，底线是不发生规模性失业风险。" },
+      { id: "q34", topicId: "d10", type: "multi", stem: "我国坚定实施健康优先发展战略，主要是因为", opts: { A: "人民健康是推动经济社会发展的根本力量", B: "卫生与健康事业具有全局性、基础性作用", C: "人民健康是民族昌盛和国家富强的重要标志", D: "人民健康是促进人的全面发展的必然要求" }, ans: ["B", "C", "D"], exp: "选BCD。A项“根本力量”表述不准确。" },
+      { id: "q85", topicId: "d10", type: "single", stem: "法治宣传教育第九个五年规划（2026-2030年）明确的首要任务是", opts: { A: "健全法治宣传教育工作体系", B: "推动习近平法治思想深入人心", C: "繁荣发展社会主义法治文化", D: "完善基层治理机制" }, ans: ["B"], exp: "九五普法首要任务是推动习近平法治思想深入人心。" },
+
+      // 国际 01
+      { id: "q35", topicId: "i01", type: "single", stem: "为深化各湾区交流互动，探索亚太经济合作新路径，中方支持成立", opts: { A: "全球大湾区智库联盟", B: "粤港澳大湾区经贸协会", C: "世界湾区经济合作联盟", D: "湾区跨境并购联盟" }, ans: ["C"], exp: "中方支持成立世界湾区经济合作联盟。" },
+      { id: "q36", topicId: "i01", type: "single", stem: "2026年亚太经合组织工商领导人峰会在深圳举行。与过去30年来的历届峰会相比，本届峰会首次", opts: { A: "以倡议形式发布成果文件", B: "就推进亚太区域经济一体化展开讨论", C: "邀请亚太工商界代表参与区域合作对话", D: "将贸易投资自由化便利化列入讨论议程" }, ans: ["A"], exp: "首次以倡议形式发布成果文件（《深圳倡议》）。" },
+      { id: "q37", topicId: "i01", type: "single", stem: "2026年11月19日，习近平在深圳举行的元首会晤中就大国如何正确相处提出四点看法。此次会晤的开创性意义在于", opts: { A: "首次在亚太经合组织会议期间举行中美元首会晤", B: "首次举行中俄美三国最高领导人会晤", C: "首次在亚太经合组织会议期间举行中俄元首会晤", D: "首次以联合国安理会会议形式举行三方会晤" }, ans: ["B"], exp: "这是中俄美三国元首历史上首次面对面会晤。" },
+      { id: "q38", topicId: "i01", type: "single", stem: "习近平在深圳举行的中俄美元首会晤中就大国正确相处提出四点看法，其中被明确为大国交往的基本准则的是", opts: { A: "和平共处", B: "合作共赢", C: "相互尊重", D: "对话协商" }, ans: ["C"], exp: "相互尊重是大国交往的基本准则。" },
+      { id: "q39", topicId: "i01", type: "multi", stem: "《2026年亚太经合组织领导人深圳展望》取得的重要进展包括", opts: { A: "明确亚太合作的正确方向", B: "搭建亚太共同体的“四梁八柱”", C: "升级亚太互联互通合作", D: "打造亚太合作的落地平台" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。《深圳展望》是APEC“中国年”最重要成果。" },
+      { id: "q86", topicId: "i01", type: "single", stem: "2026年APEC“中国年”的主题和三大优先领域分别是", opts: { A: "建设亚太共同体，促进共同繁荣；开放、创新、合作", B: "构建亚太自贸区，深化数字合作；绿色、包容、共赢", C: "推进区域一体化，维护产业链稳定；安全、发展、治理", D: "共促繁荣，共赢未来；贸易、投资、互联" }, ans: ["A"], exp: "主题是“建设亚太共同体，促进共同繁荣”，三大优先领域为开放、创新、合作。" },
+      { id: "q87", topicId: "i01", type: "multi", stem: "《2026年亚太经合组织工商领导人峰会深圳倡议》明确的优先领域包括", opts: { A: "开放包容", B: "创新增长", C: "互联互通", D: "合作共赢" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。开放包容、创新增长、互联互通、合作共赢。" },
+
+      // 国际 02
+      { id: "q40", topicId: "i02", type: "multi", stem: "构建中美建设性战略稳定关系，要把这一愿景转化为行动，努力的方向是", opts: { A: "合作为主", B: "竞争有度", C: "分歧可控", D: "和平可期" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。合作为主、竞争有度、分歧可控、和平可期。" },
+      { id: "q88", topicId: "i02", type: "multi", stem: "关于中美建设性战略稳定关系与元首外交，下列说法正确的有", opts: { A: "构建基于尊重、公平、对等的中美建设性战略稳定关系", B: "元首外交始终是中美关系的“定盘星”", C: "尊重包括彼此主权和领土完整、各自选择的社会制度和发展道路、对方核心利益和重大关切", D: "应当扣好“第一粒纽扣”，树立正确的战略认知" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为中美关系核心提法。" },
+
+      // 国际 03
+      { id: "q41", topicId: "i03", type: "single", stem: "2026年是上海合作组织成立25周年，其中最重大的发展成就是", opts: { A: "一步步成为世界上幅员最广、人口最多、发展潜力巨大的新型区域合作组织", B: "开创性提出和始终遵循“上海精神”", C: "找到不结盟、不对抗、不针对第三方的正确共处之道", D: "成为当今世界最具影响力的新兴市场和发展中国家合作平台" }, ans: ["A"], exp: "选A。B项是最宝贵精神财富，C项是最重要合作经验。" },
+      { id: "q42", topicId: "i03", type: "multi", stem: "上海合作组织勇担历史责任、主动引领历史航向的主张包括", opts: { A: "坚持发展优先，开创共同繁荣的前景", B: "坚持安全为要，营造普遍安全的环境", C: "坚持以人为本，厚植世代友好的根基", D: "坚持对话协商，完善公平有序的治理" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。发展优先、安全为要、以人为本、对话协商。" },
+      { id: "q43", topicId: "i03", type: "single", stem: "习近平主席围绕国际社会如何参与和推动多极化阐明中国主张，其中明确的发展方向是", opts: { A: "互利共赢、普惠包容", B: "主权平等、相互尊重", C: "多边主义、对话协商", D: "均衡有序、遵守法治" }, ans: ["A"], exp: "互利共赢、普惠包容是发展方向；主权平等、相互尊重是根本原则。" },
+      { id: "q89", topicId: "i03", type: "multi", stem: "在“上合组织+”会议及相关讲话中，中方提出的三点意见包括", opts: { A: "以“上合力量”驱动亚欧大陆繁荣共兴", B: "以“上合智慧”推动全球南方发展壮大", C: "以“上合行动”引领全球治理改革完善", D: "以“上合军事”主导地区安全事务" }, ans: ["A", "B", "C"], exp: "选ABC。上合坚持不结盟、不对抗、不针对第三方。" },
+
+      // 国际 04
+      { id: "q44", topicId: "i04", type: "multi", stem: "《构建更加公正合理的全球治理体系：中国的理念、倡议与行动》白皮书指出，落实全球治理倡议", opts: { A: "最根本的是坚定维护联合国的权威和地位", B: "最关键的是大国展现责任担当", C: "最需要的是各国团结合作", D: "最紧迫的是弥补和平与发展赤字" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。最根本、最关键、最需要、最紧迫四项全选。" },
+      { id: "q45", topicId: "i04", type: "single", stem: "2026全球治理论坛（雄安）的主题为", opts: { A: "以共商促共享，以善治促善智", B: "践行全球治理倡议，构建人类命运共同体", C: "多边主义：更多交流、更多包容、更多合作", D: "重建信心与合作：百年变局与改革完善全球治理" }, ans: ["D"], exp: "主题为“重建信心与合作：百年变局与改革完善全球治理”。" },
+      { id: "q90", topicId: "i04", type: "multi", stem: "2026年是新中国恢复联合国合法席位55周年。关于联大第2758号决议与恢复合法席位，下列说法正确的有", opts: { A: "联大第2758号决议确认体现的一个中国原则是国际关系基本准则和国际社会普遍共识", B: "有力巩固国际社会坚持一个中国原则的格局，为涉台问题提供权威法律依据", C: "中国对外交往格局豁然打开，迎来第二次建交高潮", D: "显著增强联合国的普遍性、代表性与权威性" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均符合恢复联合国合法席位55周年重要意义。" },
+
+      // 国际 05
+      { id: "q46", topicId: "i05", type: "multi", stem: "习近平主席强调，金砖国家要勇做时代先锋，具体要做", opts: { A: "促进创新发展的先锋", B: "维护和平稳定的先锋", C: "推动文明互鉴的先锋", D: "改革完善全球治理的先锋" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。金砖“四个先锋”。" },
+      { id: "q91", topicId: "i05", type: "single", stem: "关于金砖合作与全球南方，下列说法错误的是", opts: { A: "团结合作始终是金砖事业发展的力量之源", B: "金砖国家已迈入“大金砖合作”高质量发展新阶段", C: "全球南方群体性崛起是世界大变局的鲜明标志", D: "全球南方是阻碍世界多极化进程的重要因素" }, ans: ["D"], exp: "选D。全球南方是推动世界多极化的关键动力。" },
+
+      // 国际 06
+      { id: "q47", topicId: "i06", type: "multi", stem: "2026世界人工智能大会暨人工智能全球治理高级别会议开幕式上，习近平总书记提出的意见包括", opts: { A: "坚持开放共赢，驱动创新发展", B: "强化风险意识，确保安全可控", C: "鼓励包容并蓄，促进文明互鉴", D: "倡导和衷共济，完善全球治理" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四点治理意见全选。" },
+      { id: "q48", topicId: "i06", type: "single", stem: "2026年7月16日，成立世界人工智能合作组织协定签署仪式在上海举行。该组织旨在", opts: { A: "研制人工智能领域的国际技术标准", B: "促进人工智能国际合作和全球治理", C: "制定人工智能模型测试与评估的最佳实践", D: "科学评估人工智能的机遇、风险和影响" }, ans: ["B"], exp: "旨在促进人工智能国际合作和全球治理。" },
+      { id: "q49", topicId: "i06", type: "multi", stem: "2026年3月30日，世界数据组织成立大会在北京举行。该组织的宗旨包括", opts: { A: "弥合数据鸿沟", B: "释放数据价值", C: "统一数据标准", D: "繁荣数字经济" }, ans: ["A", "B", "D"], exp: "选ABD。不含C项“统一数据标准”。" },
+      { id: "q92", topicId: "i06", type: "single", stem: "2026世界人工智能大会强调各国在人工智能发展与治理中应秉持的理念是", opts: { A: "技术至上、效率优先", B: "以人为本、向上向善", C: "封闭排他、单边主导", D: "市场主导、弱化监管" }, ans: ["B"], exp: "各国应秉持以人为本、向上向善理念。" },
+
+      // 国际 07
+      { id: "q50", topicId: "i07", type: "multi", stem: "习近平主席就维护和促进中东和平稳定提出的主张有", opts: { A: "坚持和平共处原则", B: "坚持国家主权原则", C: "坚持国际法治原则", D: "坚持统筹发展和安全" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。中东和平稳定四点主张。" },
+      { id: "q51", topicId: "i07", type: "multi", stem: "习近平主席在开罗同埃及总统塞西会谈时，就构建中东安全新架构提出倡议，主要包括", opts: { A: "激发地区共同安全的内生动力", B: "推进地区共同安全的综合治理", C: "筑牢地区共同安全的发展根基", D: "增强地区共同安全的国际协同" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。构建中东安全新架构四点倡议。" },
+
+      // 国际 08
+      { id: "q52", topicId: "i08", type: "single", stem: "自2026年5月1日起，中国将成为全球首个", opts: { A: "对所有非洲国家实施零关税的国家", B: "对所有非洲建交国和所有建交的最不发达国家实现单方面、全覆盖零关税待遇的主要经济体", C: "对所有发展中国家实现单方面、全覆盖零关税待遇的主要经济体", D: "取消全部进口商品关税的主要经济体" }, ans: ["B"], exp: "选B。范围是“所有非洲建交国和所有建交的最不发达国家”。" },
+
+      // 国际 09
+      { id: "q53", topicId: "i09", type: "multi", stem: "中俄两国发展新时代全面战略协作伙伴关系的基础包括", opts: { A: "平等相待", B: "相互尊重", C: "重信守义", D: "合作共赢" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。平等相待、相互尊重、重信守义、合作共赢。" },
+      { id: "q54", topicId: "i09", type: "single", stem: "习近平总书记指出，中朝关系的最大优势是", opts: { A: "社会主义共同理想", B: "最高领导人战略引领", C: "命运与共的传统友谊", D: "高水平战略协作" }, ans: ["B"], exp: "中朝关系最大优势是最高领导人战略引领。" },
+      { id: "q55", topicId: "i09", type: "single", stem: "谈及中欧关系时，习近平主席指出，协同发展的关键是", opts: { A: "相互尊重、互谅互让", B: "求同存异、守正创新", C: "优势互补、互利共赢", D: "平等互利、战略稳定" }, ans: ["B"], exp: "协同发展的关键是求同存异、守正创新。" },
+
+      // 国际 10
+      { id: "q56", topicId: "i10", type: "multi", stem: "1946年5月3日开始的“东京审判”", opts: { A: "是《开罗宣言》《波茨坦公告》规定的实施", B: "反映战胜国与受害者集体意志", C: "践行《联合国宪章》的宗旨与原则", D: "捍卫了二战胜利成果" }, ans: ["A", "B", "C", "D"], exp: "选ABCD。四项均为东京审判历史定位。" },
+      { id: "q57", topicId: "i10", type: "multi", stem: "习近平主席指出，提出全球发展倡议的目的就是为了", opts: { A: "推动国际发展合作", B: "加强国际人文交流合作", C: "重振全球发展事业", D: "助力加快落实联合国2030年可持续发展议程" }, ans: ["A", "C", "D"], exp: "选ACD。不含B项“加强国际人文交流合作”。" },
+      { id: "q93", topicId: "i10", type: "single", stem: "中国—东盟自贸区3.0版升级议定书生效实施的定位不包括", opts: { A: "落实“十五五”规划纲要关于扩大高水平对外开放的举措", B: "落实中国—东盟建立对话关系30周年纪念峰会共识的标志性成果", C: "体现中国与东盟坚定支持多边主义和自由贸易的共同承诺", D: "取代东盟内部一切双边自贸协定" }, ans: ["D"], exp: "选D。升级议定书深化合作、注入新动能，不是“取代一切”。" }
+    ];
+
+    /* ==========================================================================
+       4. 持久化存储与状态（兼容旧版本存储，互不冲突）
+       ========================================================================== */
+    const STORAGE_KEY = "kaoyan_pol_micro_v1";
+    const LEGACY_KEYS = ["kaoyan_pol_trilogy_v1", "party_meetings_draw_v4", "party_meetings_draw_v3"];
+
+    const CORE_SORTED = [...CORE_CARDS].sort((a, b) => a.order - b.order);
+    const CORE_MAP = Object.fromEntries(CORE_CARDS.map(c => [c.id, c]));
+    const CA_TOPIC_MAP = Object.fromEntries(CA_TOPICS.map(t => [t.id, t]));
+    const CA_Q_MAP = Object.fromEntries(CA_QUESTIONS.map(q => [q.id, q]));
+
+    function getCorePool(scope) {
+      if (scope === "meeting") return CORE_SORTED.filter(c => c.kind === "meeting").map(c => c.id);
+      if (scope === "work") return CORE_SORTED.filter(c => c.kind === "work").map(c => c.id);
+      return CORE_SORTED.map(c => c.id);
+    }
+
+    function fisherYates(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function sameArr(a, b) {
+      if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+      return true;
+    }
+
+    function shuffleDistinct(pool, prevOrder) {
+      let out = fisherYates(pool);
+      let tries = 0;
+      while (sameArr(out, prevOrder) && tries < 24) {
+        out = fisherYates(pool);
+        tries++;
+      }
+      if (sameArr(out, prevOrder) && out.length >= 2) {
+        [out[0], out[1]] = [out[1], out[0]];
+      }
+      return out;
+    }
+
+    function makeRoundState(scope, prevOrder = []) {
+      const pool = getCorePool(scope);
+      const ord = shuffleDistinct(pool, prevOrder);
+      return {
+        roundNo: 1,
+        order: ord,
+        remaining: [...ord],
+        drawn: [],
+        currentId: null,
+        done: false,
+        lastOrder: prevOrder,
+        undoStack: []
+      };
+    }
+
+    function todayStr() {
+      const d = new Date();
+      return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    }
+
+    const defaultState = () => ({
+      activeTrack: "ca",        // 默认进入最轻快的「2027时政 · 微闯关」
+      antiLock: true,
+      clozeOn: false,
+      blindOn: false,
+      wrongMap: {},
+
+      // Track A（32会议 + 25毛著）
+      coreScope: "all",
+      coreMode: "round",
+      rounds: {
+        all: makeRoundState("all"),
+        meeting: makeRoundState("meeting"),
+        work: makeRoundState("work")
+      },
+      box: {
+        masteredIds: [],
+        unfamHits: {},
+        curByScope: { all: null, meeting: null, work: null },
+        lastByScope: { all: null, meeting: null, work: null },
+        undoStack: []
+      },
+
+      // Track B（2027时政 · 微闯关）
+      caMode: "micro",          // 'micro'（微提示+1题即测） | 'blind'（盲刷挑战） | 'index'（折叠速览目录）
+      caArea: "all",            // 'all' | 'dom' | 'intl' | 'wrong'
+      caCurQId: "q01",
+      caDoneQIds: [],           // 已做对过的题目ID
+      caWrongQIds: [],          // 错题回炉ID列表
+      caFamiliarIds: [],        // 标为“已读熟”的考点ID
+      caStreak: 0,
+      todayDate: todayStr(),
+      todayDone: 0,
+      todayGoal: 15
+    });
+
+    let st = defaultState();
+
+    let ui = {
+      flipped: false,
+      viewedBack: false,
+      cooldownUntil: 0,
+      animNext: false,
+      shownCloze: new Set(),
+      coreQuizPicked: null,
+      caPicked: [],
+      caSubmitted: false,
+      caShowFullTip: false,
+      openAccId: null
+    };
+
+    function loadSaved() {
+      try {
+        let raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          for (const k of LEGACY_KEYS) {
+            const old = localStorage.getItem(k);
+            if (old) { raw = old; break; }
+          }
+        }
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return;
+        st = {
+          ...defaultState(),
+          ...parsed,
+          wrongMap: { ...(parsed.wrongMap || {}) },
+          rounds: { ...defaultState().rounds, ...(parsed.rounds || {}) },
+          box: { ...defaultState().box, ...(parsed.box || {}) }
+        };
+        if (st.todayDate !== todayStr()) {
+          st.todayDate = todayStr();
+          st.todayDone = 0;
+        }
+      } catch (e) {
+        console.warn("读取存档失败：", e);
+      }
+    }
+
+    function persist() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
+      } catch (e) {
+        console.warn("写入存档失败：", e);
+      }
+    }
+
+    let toastTimer = null;
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove("show"), 1900);
+    }
+
+    function cooling() { return Date.now() < ui.cooldownUntil; }
+    function setCool(ms = 320) { ui.cooldownUntil = Date.now() + ms; }
+
+    /* ==========================================================================
+       5. Track B 时政微闯关逻辑（微步流：扫关键词 -> 做1题 -> 错题回炉）
+       ========================================================================== */
+    function getCaQuestionPool() {
+      if (st.caArea === "wrong") {
+        return CA_QUESTIONS.filter(q => st.caWrongQIds.includes(q.id));
+      }
+      const allowedTopics = new Set(
+        CA_TOPICS.filter(t => st.caArea === "all" || t.area === st.caArea).map(t => t.id)
+      );
+      return CA_QUESTIONS.filter(q => allowedTopics.has(q.topicId));
+    }
+
+    function pickNextCaQuestion(preferTopicId = null) {
+      let pool = preferTopicId
+        ? CA_QUESTIONS.filter(q => q.topicId === preferTopicId)
+        : getCaQuestionPool();
+
+      if (!pool.length) {
+        st.caCurQId = null;
+        ui.caPicked = [];
+        ui.caSubmitted = false;
+        ui.caShowFullTip = false;
+        return;
+      }
+
+      // 1. 优先从当前池里的错题回炉中抽（60%概率）
+      const wrongPool = pool.filter(q => st.caWrongQIds.includes(q.id) && q.id !== st.caCurQId);
+      if (wrongPool.length > 0 && Math.random() < 0.6) {
+        st.caCurQId = wrongPool[Math.floor(Math.random() * wrongPool.length)].id;
+      } else {
+        // 2. 其次从未做对过的新题里顺序推进，让知识按主题块连贯推进，不跳来跳去
+        const undone = pool.filter(q => !st.caDoneQIds.includes(q.id) && q.id !== st.caCurQId);
+        if (undone.length > 0) {
+          st.caCurQId = undone[0].id;
+        } else {
+          const rest = pool.filter(q => q.id !== st.caCurQId);
+          const pickFrom = rest.length ? rest : pool;
+          st.caCurQId = pickFrom[Math.floor(Math.random() * pickFrom.length)].id;
+        }
+      }
+
+      ui.caPicked = [];
+      ui.caSubmitted = false;
+      ui.caShowFullTip = false;
+      ui.animNext = true;
+    }
+
+    function submitCaQuiz() {
+      const q = CA_Q_MAP[st.caCurQId];
+      if (!q || !ui.caPicked.length || ui.caSubmitted) return;
+
+      const isRight = [...q.ans].sort().join(",") === [...ui.caPicked].sort().join(",");
+      ui.caSubmitted = true;
+
+      if (st.todayDate !== todayStr()) {
+        st.todayDate = todayStr();
+        st.todayDone = 0;
+      }
+      st.todayDone += 1;
+
+      if (isRight) {
+        st.caStreak += 1;
+        if (!st.caDoneQIds.includes(q.id)) st.caDoneQIds.push(q.id);
+        st.caWrongQIds = st.caWrongQIds.filter(id => id !== q.id);
+        if (st.todayDone === st.todayGoal) {
+          toast(`🎉 达成今日 ${st.todayGoal} 关小目标！`);
+        } else {
+          toast(st.caStreak >= 3 ? `🔥 连对 ${st.caStreak} 关！` : "✓ 过关！眼熟度 +1");
+        }
+      } else {
+        st.caStreak = 0;
+        st.wrongMap[q.id] = (st.wrongMap[q.id] || 0) + 1;
+        if (!st.caWrongQIds.includes(q.id)) st.caWrongQIds.push(q.id);
+        toast("已记入错题回炉，稍后自动重练");
+      }
+
+      persist();
+      render();
+    }
+
+    /* ==========================================================================
+       6. Track A 核心背诵逻辑（轮抽 / 双盒加权 / 会著联动）
+       ========================================================================== */
+    function curRound() { return st.rounds[st.coreScope]; }
+
+    function resetCoreTransient(anim = true) {
+      ui.flipped = false;
+      ui.viewedBack = false;
+      ui.animNext = anim;
+      ui.shownCloze = new Set();
+      ui.coreQuizPicked = null;
+    }
+
+    function drawRoundCard() {
+      if (cooling()) return;
+      const r = curRound();
+      r.undoStack.push({
+        remaining: [...r.remaining],
+        drawn: [...r.drawn],
+        currentId: r.currentId,
+        done: r.done
+      });
+      if (r.undoStack.length > 25) r.undoStack.shift();
+
+      if (r.remaining.length === 0) {
+        r.currentId = null;
+        r.done = true;
+        persist();
+        setCool();
+        render();
+        return;
+      }
+      const next = r.remaining.shift();
+      r.drawn.push(next);
+      r.currentId = next;
+      r.done = false;
+      resetCoreTransient(true);
+      persist();
+      setCool();
+      render();
+    }
+
+    function startNextRound() {
+      if (cooling()) return;
+      const sc = st.coreScope;
+      const r = st.rounds[sc];
+      const pool = getCorePool(sc);
+      const prev = r.order.length === pool.length ? r.order : r.drawn;
+      const ord = shuffleDistinct(pool, prev);
+
+      r.roundNo += 1;
+      r.lastOrder = [...prev];
+      r.order = ord;
+      r.remaining = [...ord];
+      r.drawn = [];
+      r.undoStack = [];
+      r.done = false;
+
+      const first = r.remaining.shift();
+      r.drawn.push(first);
+      r.currentId = first;
+      resetCoreTransient(true);
+      persist();
+      setCool();
+      toast(`开启第 ${r.roundNo} 轮（全新随机顺序）`);
+      render();
+    }
+
+    function undoRoundCard() {
+      if (cooling()) return;
+      const r = curRound();
+      if (!r.undoStack.length) return;
+      Object.assign(r, r.undoStack.pop());
+      resetCoreTransient(true);
+      ui.viewedBack = true;
+      persist();
+      setCool(220);
+      toast("已撤回上一签");
+      render();
+    }
+
+    function unfamPool(sc = st.coreScope) {
+      const mSet = new Set(st.box.masteredIds);
+      return getCorePool(sc).filter(id => !mSet.has(id));
+    }
+
+    function boxWeight(id) {
+      const w = st.wrongMap[id] || 0;
+      const u = st.box.unfamHits[id] || 0;
+      if (w > 0) return 4 * (1 + Math.min(w - 1, 3) * 0.25);
+      if (u > 0) return 2.5 * (1 + Math.min(u - 1, 3) * 0.2);
+      return 1;
+    }
+
+    function pickBoxId(sc = st.coreScope, avoidId = null) {
+      const pool = unfamPool(sc);
+      if (!pool.length) return null;
+      if (pool.length === 1) return pool[0];
+      const cands = avoidId ? pool.filter(x => x !== avoidId) : pool;
+      const list = cands.length ? cands : pool;
+      let sum = 0;
+      const ws = list.map(id => { const wt = boxWeight(id); sum += wt; return wt; });
+      let r = Math.random() * sum;
+      for (let i = 0; i < list.length; i++) {
+        r -= ws[i];
+        if (r <= 0) return list[i];
+      }
+      return list[list.length - 1];
+    }
+
+    function saveBoxUndo() {
+      st.box.undoStack.push({
+        masteredIds: [...st.box.masteredIds],
+        unfamHits: { ...st.box.unfamHits },
+        curByScope: { ...st.box.curByScope },
+        lastByScope: { ...st.box.lastByScope }
+      });
+      if (st.box.undoStack.length > 25) st.box.undoStack.shift();
+    }
+
+    function drawBoxCard() {
+      if (cooling()) return;
+      const sc = st.coreScope;
+      const id = pickBoxId(sc, st.box.lastByScope[sc]);
+      if (!id) return;
+      st.box.curByScope[sc] = id;
+      st.box.lastByScope[sc] = id;
+      resetCoreTransient(true);
+      persist();
+      setCool();
+      render();
+    }
+
+    function boxStillUnfam() {
+      if (cooling()) return;
+      const sc = st.coreScope;
+      const cur = st.box.curByScope[sc];
+      if (!cur) return;
+      saveBoxUndo();
+      st.box.unfamHits[cur] = (st.box.unfamHits[cur] || 0) + 1;
+      const next = pickBoxId(sc, cur);
+      st.box.curByScope[sc] = next;
+      st.box.lastByScope[sc] = next;
+      resetCoreTransient(true);
+      persist();
+      setCool();
+      toast("已留陌生盒（加权高频重抽）");
+      render();
+    }
+
+    function boxMarkMastered() {
+      if (cooling()) return;
+      const sc = st.coreScope;
+      const cur = st.box.curByScope[sc];
+      if (!cur) return;
+      saveBoxUndo();
+      if (!st.box.masteredIds.includes(cur)) st.box.masteredIds.push(cur);
+      ["all", "meeting", "work"].forEach(k => {
+        if (k !== sc && st.box.curByScope[k] === cur) st.box.curByScope[k] = null;
+      });
+      const next = pickBoxId(sc, cur);
+      st.box.curByScope[sc] = next;
+      if (next) st.box.lastByScope[sc] = next;
+      resetCoreTransient(Boolean(next));
+      persist();
+      setCool();
+      toast(next ? "已归档熟练盒" : "当前板块已全部熟练！");
+      render();
+    }
+
+    function undoBoxStep() {
+      if (cooling() || !st.box.undoStack.length) return;
+      Object.assign(st.box, st.box.undoStack.pop());
+      resetCoreTransient(true);
+      ui.viewedBack = true;
+      persist();
+      setCool(220);
+      toast("已撤回上一步");
+      render();
+    }
+
+    function openLinkModal(cardId) {
+      const c = CORE_MAP[cardId];
+      if (!c) return;
+      document.getElementById("linkModalTitle").textContent = `🔗 关联速览 · ${c.year} ${c.title}`;
+      document.getElementById("linkModalBody").innerHTML = `
+        <div class="layer-box core">
+          <div class="layer-lbl">【必背核心】</div>
+          <p class="layer-txt">${c.core.replace(/\{\{([^}]+)\}\}/g, (_, w) => `<span class="kw-hl ${c.kind}">${w}</span>`)}</p>
+        </div>
+        <div class="layer-box trap">
+          <div class="layer-lbl">【陷阱干扰项】</div>
+          <p class="layer-txt" style="font-size:13px;">${c.trap}</p>
+        </div>
+      `;
+      document.getElementById("linkModal").classList.add("open");
+    }
+
+    /* ==========================================================================
+       7. 界面渲染
+       ========================================================================== */
+    function renderClozeHtml(raw, kind) {
+      let idx = 0;
+      return raw.replace(/\{\{([^}]+)\}\}/g, (_, word) => {
+        const n = idx++;
+        if (!st.clozeOn) return `<span class="kw-hl ${kind}">${word}</span>`;
+        const open = ui.shownCloze.has(n);
+        return `<span class="cloze-pill no-flip ${open ? "shown" : "masked"}" data-cidx="${n}">${word}</span>`;
+      });
+    }
+
+    function renderGoalBar() {
+      const bar = document.getElementById("goalBar");
+      if (st.activeTrack === "ca") {
+        const pct = Math.min(100, Math.round((st.todayDone / st.todayGoal) * 100));
+        bar.innerHTML = `
+          <div class="goal-row">
+            <div class="goal-metrics">
+              <span style="color:var(--slate);"><span class="lbl">今日小目标</span>${st.todayDone} / ${st.todayGoal} 关</span>
+              <span style="color:var(--forest);"><span class="lbl">已掌握</span>${st.caDoneQIds.length} / ${CA_QUESTIONS.length} 题</span>
+              ${st.caWrongQIds.length > 0 ? `<span style="color:var(--crimson);"><span class="lbl">回炉</span>${st.caWrongQIds.length}</span>` : ""}
+              ${st.caStreak >= 2 ? `<span style="color:var(--amber);">🔥 ${st.caStreak}连对</span>` : ""}
+            </div>
+            <button id="btnResetTrack" class="mini-btn danger" type="button">↺ 重置</button>
+          </div>
+          <div class="goal-track"><div class="goal-fill" style="width:${pct}%;"></div></div>
+        `;
+      } else {
+        const sc = st.coreScope;
+        const tot = getCorePool(sc).length;
+        if (st.coreMode === "round") {
+          const r = curRound();
+          const doneCnt = r.drawn.length;
+          const pct = Math.round((doneCnt / tot) * 100);
+          bar.innerHTML = `
+            <div class="goal-row">
+              <div class="goal-metrics">
+                <span style="color:var(--slate);"><span class="lbl">当前轮次</span>第 ${r.roundNo} 轮</span>
+                <span style="color:var(--crimson);"><span class="lbl">剩余</span>${r.remaining.length} / ${tot} 签</span>
+              </div>
+              <button id="btnResetTrack" class="mini-btn danger" type="button">↺ 重置本轮</button>
+            </div>
+            <div class="goal-track"><div class="goal-fill" style="width:${pct}%;"></div></div>
+          `;
+        } else {
+          const uf = unfamPool(sc).length;
+          const ms = tot - uf;
+          const pct = Math.round((ms / tot) * 100);
+          bar.innerHTML = `
+            <div class="goal-row">
+              <div class="goal-metrics">
+                <span style="color:var(--crimson);"><span class="lbl">陌生盒</span>${uf} 签</span>
+                <span style="color:var(--forest);"><span class="lbl">熟练盒</span>${ms} / ${tot} 签</span>
+              </div>
+              <button id="btnResetTrack" class="mini-btn danger" type="button">↺ 重置双盒</button>
+            </div>
+            <div class="goal-track"><div class="goal-fill" style="width:${pct}%;"></div></div>
+          `;
+        }
+      }
+
+      document.getElementById("btnResetTrack").addEventListener("click", handleResetTrack);
+    }
+
+    function renderSubBar() {
+      const bar = document.getElementById("subBar");
+      if (st.activeTrack === "ca") {
+        bar.innerHTML = `
+          <div class="seg-group">
+            <button class="seg-btn ${st.caMode === "micro" ? "active" : ""}" data-camode="micro" type="button">⚡ 微提示闯关</button>
+            <button class="seg-btn ${st.caMode === "blind" ? "active" : ""}" data-camode="blind" type="button">🎯 直接盲刷</button>
+            <button class="seg-btn ${st.caMode === "index" ? "active" : ""}" data-camode="index" type="button">📑 折叠速览(20专题)</button>
+          </div>
+          <div class="seg-group">
+            <button class="seg-btn ${st.caArea === "all" ? "active-forest" : ""}" data-caarea="all" type="button">全部</button>
+            <button class="seg-btn ${st.caArea === "dom" ? "active-forest" : ""}" data-caarea="dom" type="button">国内</button>
+            <button class="seg-btn ${st.caArea === "intl" ? "active-forest" : ""}" data-caarea="intl" type="button">国际</button>
+            <button class="seg-btn ${st.caArea === "wrong" ? "active-crimson" : ""}" data-caarea="wrong" type="button">错题(${st.caWrongQIds.length})</button>
+          </div>
+        `;
+
+        bar.querySelectorAll("[data-camode]").forEach(b => {
+          b.addEventListener("click", () => {
+            st.caMode = b.dataset.camode;
+            if (st.caMode !== "index" && !st.caCurQId) pickNextCaQuestion();
+            persist();
+            render();
+          });
+        });
+
+        bar.querySelectorAll("[data-caarea]").forEach(b => {
+          b.addEventListener("click", () => {
+            st.caArea = b.dataset.caarea;
+            if (st.caMode !== "index") pickNextCaQuestion();
+            persist();
+            render();
+          });
+        });
+      } else {
+        bar.innerHTML = `
+          <div class="seg-group">
+            <button class="seg-btn ${st.coreScope === "all" ? "active" : ""}" data-cscope="all" type="button">全部(57)</button>
+            <button class="seg-btn ${st.coreScope === "meeting" ? "active-crimson" : ""}" data-cscope="meeting" type="button">会议(32)</button>
+            <button class="seg-btn ${st.coreScope === "work" ? "active-forest" : ""}" data-cscope="work" type="button">毛著(25)</button>
+          </div>
+          <div class="seg-group">
+            <button class="seg-btn ${st.coreMode === "round" ? "active" : ""}" data-cmode="round" type="button">全量轮抽</button>
+            <button class="seg-btn ${st.coreMode === "box" ? "active" : ""}" data-cmode="box" type="button">双盒记忆</button>
+          </div>
+          <div class="seg-group" style="width:100%;justify-content:flex-end;">
+            <button id="btnCloze" class="pill-btn ${st.clozeOn ? "slate" : ""}" type="button">🧩 挖空:${st.clozeOn ? "开" : "关"}</button>
+            <button id="btnBlind" class="pill-btn ${st.blindOn ? "crimson" : ""}" type="button">🙈 盲测:${st.blindOn ? "开" : "关"}</button>
+            <button id="btnLock" class="pill-btn ${st.antiLock ? "amber" : ""}" type="button">🔒 防误触:${st.antiLock ? "开" : "关"}</button>
+          </div>
+        `;
+
+        bar.querySelectorAll("[data-cscope]").forEach(b => {
+          b.addEventListener("click", () => {
+            st.coreScope = b.dataset.cscope;
+            resetCoreTransient(false);
+            persist();
+            render();
+          });
+        });
+        bar.querySelectorAll("[data-cmode]").forEach(b => {
+          b.addEventListener("click", () => {
+            st.coreMode = b.dataset.cmode;
+            resetCoreTransient(false);
+            persist();
+            render();
+          });
+        });
+        document.getElementById("btnCloze").addEventListener("click", () => {
+          st.clozeOn = !st.clozeOn;
+          ui.shownCloze = new Set();
+          persist();
+          render();
+        });
+        document.getElementById("btnBlind").addEventListener("click", () => {
+          st.blindOn = !st.blindOn;
+          persist();
+          render();
+        });
+        document.getElementById("btnLock").addEventListener("click", () => {
+          st.antiLock = !st.antiLock;
+          persist();
+          toast(st.antiLock ? "防误触锁已开" : "防误触锁已关");
+          render();
+        });
+      }
+    }
+
+    function renderStage() {
+      const stage = document.getElementById("stage");
+      const bottom = document.getElementById("bottomBar");
+      bottom.innerHTML = "";
+
+      if (st.activeTrack === "ca") {
+        renderCaStage(stage, bottom);
+      } else {
+        renderCoreStage(stage, bottom);
+      }
+    }
+
+    function renderCaStage(stage, bottom) {
+      // 1. 折叠速览目录（点哪个展开哪个，绝不堆长文）
+      if (st.caMode === "index") {
+        const list = CA_TOPICS.filter(t => {
+          if (st.caArea === "dom") return t.area === "dom";
+          if (st.caArea === "intl") return t.area === "intl";
+          if (st.caArea === "wrong") {
+            return CA_QUESTIONS.some(q => q.topicId === t.id && st.caWrongQIds.includes(q.id));
+          }
+          return true;
+        });
+
+        if (!list.length) {
+          stage.innerHTML = `
+            <div class="empty-card">
+              <h3>当前筛选下暂无专题</h3>
+              <p>${st.caArea === "wrong" ? "错题回炉已清空，继续保持！" : "请切换其他分类。"}</p>
+              <button id="btnBackAllCa" class="btn-main" style="max-width:220px;margin:0 auto;" type="button">返回全部专题</button>
+            </div>
+          `;
+          document.getElementById("btnBackAllCa").addEventListener("click", () => {
+            st.caArea = "all";
+            persist();
+            render();
+          });
+          return;
+        }
+
+        stage.innerHTML = `
+          <div class="acc-list">
+            ${list.map(t => {
+              const isOpen = ui.openAccId === t.id;
+              const isFam = st.caFamiliarIds.includes(t.id);
+              const qCnt = CA_QUESTIONS.filter(q => q.topicId === t.id).length;
+              return `
+                <div class="acc-item ${isFam ? "done" : ""}">
+                  <button class="acc-head" data-acctoggle="${t.id}" type="button">
+                    <div style="display:flex;align-items:center;gap:7px;min-width:0;">
+                      <span class="badge ${t.area === "dom" ? "slate" : "forest"}">${t.code.replace("重点 ", "")}</span>
+                      <span class="acc-title">${t.title}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                      ${isFam ? `<span class="badge forest">✓ 已熟</span>` : ""}
+                      <span style="font-size:12px;color:var(--ink-muted);">${isOpen ? "▲" : "▼"}</span>
+                    </div>
+                  </button>
+                  ${isOpen ? `
+                    <div class="acc-body">
+                      <div class="chip-wrap">
+                        ${t.chips.map(ch => `<div class="kw-chip">${ch}</div>`).join("")}
+                      </div>
+                      <p class="micro-full-text">${t.full}</p>
+                      <div style="background:var(--amber-soft);border:1px solid var(--amber-border);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--amber);">
+                        <strong>⚠️ 避坑：</strong>${t.trap}
+                      </div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                        <button class="mini-btn" style="background:var(--slate-soft);color:var(--slate);" data-jumpq="${t.id}" type="button">
+                          ✍️ 练本专题 (${qCnt}题)
+                        </button>
+                        <button class="mini-btn" style="${isFam ? "background:var(--forest-soft);color:var(--forest);" : ""}" data-togglefam="${t.id}" type="button">
+                          ${isFam ? "✓ 已读熟" : "标为已读熟"}
+                        </button>
+                      </div>
+                    </div>
+                  ` : ""}
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+
+        stage.querySelectorAll("[data-acctoggle]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.dataset.acctoggle;
+            ui.openAccId = ui.openAccId === id ? null : id;
+            render();
+          });
+        });
+
+        stage.querySelectorAll("[data-jumpq]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            st.caMode = "micro";
+            st.caArea = "all";
+            pickNextCaQuestion(btn.dataset.jumpq);
+            persist();
+            render();
+          });
+        });
+
+        stage.querySelectorAll("[data-togglefam]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const id = btn.dataset.togglefam;
+            if (st.caFamiliarIds.includes(id)) {
+              st.caFamiliarIds = st.caFamiliarIds.filter(x => x !== id);
+            } else {
+              st.caFamiliarIds.push(id);
+              toast("✓ 已标为读熟");
+            }
+            persist();
+            render();
+          });
+        });
+
+        bottom.innerHTML = `
+          <button id="btnGoMicro" class="btn-main" type="button">返回微提示闯关 →</button>
+        `;
+        document.getElementById("btnGoMicro").addEventListener("click", () => {
+          st.caMode = "micro";
+          if (!st.caCurQId) pickNextCaQuestion();
+          persist();
+          render();
+        });
+        return;
+      }
+
+      // 2. 微提示闯关 / 直接盲刷
+      const pool = getCaQuestionPool();
+      if (!pool.length) {
+        stage.innerHTML = `
+          <div class="empty-card">
+            <h3>${st.caArea === "wrong" ? "错题回炉已全部清空！" : "暂无可用题目"}</h3>
+            <p>${st.caArea === "wrong" ? "做错的题目都已经重新练对过关啦，切回全部继续刷吧。" : "请切换其他时政范围。"}</p>
+            <button id="btnSwitchAllCa" class="btn-main" style="max-width:220px;margin:0 auto;" type="button">切回全部时政</button>
+          </div>
+        `;
+        document.getElementById("btnSwitchAllCa").addEventListener("click", () => {
+          st.caArea = "all";
+          pickNextCaQuestion();
+          persist();
+          render();
+        });
+        return;
+      }
+
+      if (!st.caCurQId || !pool.some(q => q.id === st.caCurQId)) {
+        pickNextCaQuestion();
+      }
+
+      const q = CA_Q_MAP[st.caCurQId];
+      const topic = CA_TOPIC_MAP[q.topicId];
+      const isMulti = q.type === "multi";
+      const inWrong = st.caWrongQIds.includes(q.id);
+      const animCls = ui.animNext ? "anim-in" : "";
+      ui.animNext = false;
+
+      let isRight = false;
+      if (ui.caSubmitted) {
+        isRight = [...q.ans].sort().join(",") === [...ui.caPicked].sort().join(",");
+      }
+
+      const showTipCard = st.caMode === "micro" || ui.caSubmitted;
+
+      stage.innerHTML = `
+        ${showTipCard && topic ? `
+          <section class="micro-tip-card ${animCls}">
+            <div class="micro-tip-head">
+              <div style="display:flex;align-items:center;gap:6px;min-width:0;">
+                <span class="badge ${topic.area === "dom" ? "slate" : "forest"}">${topic.code}</span>
+                <h3 class="micro-tip-title">${topic.title}</h3>
+              </div>
+              <button id="btnToggleFullTip" class="mini-btn" style="flex-shrink:0;" type="button">
+                ${ui.caShowFullTip ? "收起完整表述" : "展开完整句"}
+              </button>
+            </div>
+            <div class="chip-wrap">
+              ${topic.chips.map(ch => `<div class="kw-chip">${ch}</div>`).join("")}
+            </div>
+            ${ui.caShowFullTip ? `<p class="micro-full-text">${topic.full}</p>` : ""}
+          </section>
+        ` : ""}
+
+        <section class="quiz-card ${!showTipCard ? animCls : ""}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span class="badge ${isMulti ? "amber" : "slate"}">${isMulti ? "多选题（选出所有正确项）" : "单选题"}</span>
+            ${inWrong ? `<span class="badge crimson">🔥 错题回炉</span>` : `<span style="font-size:11.5px;color:var(--ink-muted);">看眼熟直接选</span>`}
+          </div>
+
+          <div class="q-stem">${q.stem}</div>
+
+          <div class="opt-list">
+            ${Object.entries(q.opts).map(([k, txt]) => {
+              const picked = ui.caPicked.includes(k);
+              const isAns = q.ans.includes(k);
+              let cls = "";
+              if (ui.caSubmitted) {
+                if (isAns) cls = "opt-right";
+                else if (picked) cls = "opt-wrong";
+              } else if (picked) {
+                cls = "selected";
+              }
+              return `
+                <button class="opt-btn ${cls}" data-opt="${k}" type="button" ${ui.caSubmitted ? "disabled" : ""}>
+                  <span class="opt-key">${k}.</span>
+                  <span>${txt}</span>
+                </button>
+              `;
+            }).join("")}
+          </div>
+
+          ${ui.caSubmitted ? `
+            <div class="feedback-box ${isRight ? "right" : "wrong"}">
+              <strong>${isRight ? "✓ 选对了！" : `✗ 正确答案：${q.ans.join("、")}`}</strong><br/>
+              ${q.exp}
+            </div>
+          ` : ""}
+        </section>
+      `;
+
+      document.getElementById("btnToggleFullTip")?.addEventListener("click", () => {
+        ui.caShowFullTip = !ui.caShowFullTip;
+        render();
+      });
+
+      if (!ui.caSubmitted) {
+        stage.querySelectorAll("[data-opt]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const k = btn.dataset.opt;
+            if (isMulti) {
+              if (ui.caPicked.includes(k)) ui.caPicked = ui.caPicked.filter(x => x !== k);
+              else ui.caPicked.push(k);
+            } else {
+              ui.caPicked = [k];
+            }
+            render();
+          });
+        });
+      }
+
+      bottom.innerHTML = `
+        <div class="btn-row">
+          ${!ui.caSubmitted ? `
+            <button id="btnSubmitCa" class="btn-main" type="button" ${ui.caPicked.length ? "" : "disabled"}>
+              确认提交（已选 ${ui.caPicked.sort().join("") || "无"}）
+            </button>
+          ` : `
+            <button id="btnNextCa" class="btn-main" style="background:var(--forest);" type="button">
+              下一关 →
+            </button>
+          `}
+        </div>
+      `;
+
+      if (!ui.caSubmitted) {
+        document.getElementById("btnSubmitCa").addEventListener("click", submitCaQuiz);
+      } else {
+        document.getElementById("btnNextCa").addEventListener("click", () => {
+          pickNextCaQuestion();
+          persist();
+          render();
+        });
+      }
+    }
+
+    function renderCoreStage(stage, bottom) {
+      const sc = st.coreScope;
+      const tot = getCorePool(sc).length;
+      const animCls = ui.animNext ? "anim-in" : "";
+      ui.animNext = false;
+
+      if (st.coreMode === "round") {
+        const r = curRound();
+        if (r.done) {
+          stage.innerHTML = `
+            <div class="empty-card">
+              <h3>第 ${r.roundNo} 轮已全部抽完 (${tot} 签)</h3>
+              <p>开启新一轮将自动打乱顺序，保证与上一轮排列不同。</p>
+              <button id="btnNextR" class="btn-main" style="max-width:230px;margin:0 auto;" type="button">开启第 ${r.roundNo + 1} 轮</button>
+            </div>
+          `;
+          document.getElementById("btnNextR").addEventListener("click", startNextRound);
+          return;
+        }
+        if (!r.currentId) {
+          stage.innerHTML = `
+            <div class="empty-card">
+              <h3>全量轮抽 · 抽完即换新顺序</h3>
+              <p>先看正面年份与名称回忆，点击翻面核对核心考点与会著联动。</p>
+              <button id="btnFirstR" class="btn-main" style="max-width:230px;margin:0 auto;" type="button">抽取第一签</button>
+            </div>
+          `;
+          document.getElementById("btnFirstR").addEventListener("click", drawRoundCard);
+          return;
+        }
+      } else {
+        const uf = unfamPool(sc).length;
+        if (uf === 0) {
+          stage.innerHTML = `
+            <div class="empty-card">
+              <h3>当前板块已全部归档熟练盒！</h3>
+              <p>所有 ${tot} 张卡片均已标记熟练，可在右上角「检索」随时移回。</p>
+              <button id="btnOpenBoxList" class="btn-main" style="background:var(--forest);max-width:230px;margin:0 auto;" type="button">查看熟练列表</button>
+            </div>
+          `;
+          document.getElementById("btnOpenBoxList").addEventListener("click", () => openSearchModal("MASTERED"));
+          return;
+        }
+        if (!st.box.curByScope[sc]) {
+          stage.innerHTML = `
+            <div class="empty-card">
+              <h3>双盒记忆 · 陌生盒剩 ${uf} 签</h3>
+              <p>错题权重×4、手动陌生×2.5、常规×1；熟练后归档不再抽取。</p>
+              <button id="btnFirstBox" class="btn-main" style="max-width:230px;margin:0 auto;" type="button">从陌生盒抽签</button>
+            </div>
+          `;
+          document.getElementById("btnFirstBox").addEventListener("click", drawBoxCard);
+          return;
+        }
+      }
+
+      const cardId = st.coreMode === "round" ? curRound().currentId : st.box.curByScope[sc];
+      const c = CORE_MAP[cardId];
+      const wCnt = st.wrongMap[c.id] || 0;
+      const counterTxt = st.coreMode === "round" ? `已抽 ${curRound().drawn.length} / ${tot}` : `陌生盒余 ${unfamPool(sc).length}`;
+      const qPicked = ui.coreQuizPicked;
+      const qDone = qPicked !== null;
+      const qOk = qDone && qPicked === c.q.ans;
+
+      stage.innerHTML = `
+        <div id="coreScene" class="card-panel ${animCls}">
+          ${!ui.flipped ? `
+            <div id="cardFrontView" class="card-front-view">
+              <div class="face-top">
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                  ${st.blindOn ? `<span class="badge muted">盲测</span>` : `<span class="badge ${c.kind === "meeting" ? "crimson" : "forest"}">${c.kind === "meeting" ? "核心会议" : "毛选著作"}</span>`}
+                  ${wCnt > 0 ? `<span class="badge amber">🔥 错×${wCnt}</span>` : ""}
+                </div>
+                <span style="font-size:11.5px;color:var(--ink-muted);font-weight:600;">${counterTxt}</span>
+              </div>
+
+              <div>
+                <div class="front-year ${st.blindOn ? "blind" : c.kind}">${c.year}</div>
+                <h2 class="front-title">${c.title}</h2>
+                <div style="margin-top:10px;font-size:12px;color:var(--ink-muted);">${st.blindOn ? "先回忆再看解析" : c.tag}</div>
+              </div>
+
+              <div class="front-tip">点击签面查看考点解析</div>
+            </div>
+          ` : `
+            <div id="cardBackView" class="card-back-view">
+              <div class="back-top">
+                <div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;min-width:0;">
+                  <span style="font-family:var(--font-mono);font-size:13px;font-weight:800;color:${c.kind === "meeting" ? "var(--crimson)" : "var(--forest)"};">${c.year}</span>
+                  <strong style="font-family:var(--font-serif);font-size:15.5px;">${c.title}</strong>
+                </div>
+                <span class="badge ${c.kind === "meeting" ? "crimson" : "forest"}">${c.tag}</span>
+              </div>
+
+              <div class="back-body">
+                <div class="layer-box core">
+                  <div class="layer-lbl">
+                    <span>①【必背核心】</span>
+                    ${st.clozeOn ? `<button id="btnRevealCloze" class="mini-btn" style="padding:3px 9px;font-size:11px;" type="button">全部揭晓</button>` : ""}
+                  </div>
+                  <p class="layer-txt">${renderClozeHtml(c.core, c.kind)}</p>
+                </div>
+
+                <div class="layer-box sec">
+                  <div class="layer-lbl">②【次要要点】</div>
+                  <p class="layer-txt" style="font-size:13px;color:var(--ink-secondary);">${c.sec}</p>
+                </div>
+
+                <div class="layer-box trap">
+                  <div class="layer-lbl">③【陷阱干扰项】</div>
+                  <p class="layer-txt" style="font-size:13px;">${c.trap}</p>
+                </div>
+
+                ${c.linkIds && c.linkIds.length ? `
+                  <div class="layer-box link">
+                    <div class="layer-lbl">🔗【会著联动】点击对比</div>
+                    <p class="layer-txt" style="font-size:12.5px;margin-bottom:7px;">${c.linkNote}</p>
+                    <div class="chip-wrap">
+                      ${c.linkIds.map(lid => {
+                        const lc = CORE_MAP[lid];
+                        if (!lc) return "";
+                        return `<button class="mini-btn" style="background:#FFFFFF;border:1px solid var(--slate-border);color:var(--slate);" data-linkid="${lid}" type="button">${lc.year} ${lc.title} →</button>`;
+                      }).join("")}
+                    </div>
+                  </div>
+                ` : ""}
+
+                <div class="layer-box sec" style="background:#FFFFFF;">
+                  <div class="layer-lbl" style="color:var(--ink);">✦ 随堂判断</div>
+                  <p class="layer-txt" style="font-size:13px;font-weight:600;margin-bottom:8px;">${c.q.stem}</p>
+                  <div class="btn-row">
+                    <button id="btnCardT" class="opt-btn ${qDone && qPicked === true ? (qOk ? "opt-right" : "opt-wrong") : ""}" style="padding:8px;justify-content:center;font-size:13px;font-weight:700;" type="button" ${qDone ? "disabled" : ""}>✓ 正确</button>
+                    <button id="btnCardF" class="opt-btn ${qDone && qPicked === false ? (qOk ? "opt-right" : "opt-wrong") : ""}" style="padding:8px;justify-content:center;font-size:13px;font-weight:700;" type="button" ${qDone ? "disabled" : ""}>✗ 错误</button>
+                  </div>
+                  ${qDone ? `<div class="feedback-box ${qOk ? "right" : "wrong"}" style="margin-top:8px;font-size:12.5px;">${c.q.exp}</div>` : ""}
+                </div>
+              </div>
+
+              <div class="back-bottom">
+                <span>考点解析已展开</span>
+                <button id="btnFlipFront" class="mini-btn" style="color:var(--slate);background:var(--slate-soft);" type="button">↻ 切回签面</button>
+              </div>
+            </div>
+          `}
+        </div>
+      `;
+
+      document.getElementById("cardFrontView")?.addEventListener("click", () => {
+        ui.flipped = true;
+        ui.viewedBack = true;
+        render();
+        renderCoreBottom(bottom);
+      });
+
+      document.getElementById("btnFlipFront")?.addEventListener("click", () => {
+        ui.flipped = false;
+        render();
+        renderCoreBottom(bottom);
+      });
+
+      document.getElementById("btnRevealCloze")?.addEventListener("click", () => {
+        document.querySelectorAll("#cardBackView .cloze-pill").forEach(el => {
+          ui.shownCloze.add(Number(el.dataset.cidx));
+        });
+        render();
+        renderCoreBottom(bottom);
+      });
+
+      document.querySelectorAll("#cardBackView .cloze-pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+          const n = Number(pill.dataset.cidx);
+          if (ui.shownCloze.has(n)) ui.shownCloze.delete(n);
+          else ui.shownCloze.add(n);
+          render();
+          renderCoreBottom(bottom);
+        });
+      });
+
+      document.querySelectorAll("#cardBackView [data-linkid]").forEach(linkBtn => {
+        linkBtn.addEventListener("click", () => {
+          openLinkModal(linkBtn.dataset.linkid);
+        });
+      });
+
+      if (!qDone) {
+        const judge = val => {
+          ui.coreQuizPicked = val;
+          ui.flipped = true;
+          ui.viewedBack = true;
+          if (val !== c.q.ans) {
+            st.wrongMap[c.id] = (st.wrongMap[c.id] || 0) + 1;
+            st.box.masteredIds = st.box.masteredIds.filter(x => x !== c.id);
+            toast("🔥 答错已标高优复习");
+          }
+          persist();
+          render();
+          renderCoreBottom(bottom);
+        };
+        document.getElementById("btnCardT")?.addEventListener("click", () => judge(true));
+        document.getElementById("btnCardF")?.addEventListener("click", () => judge(false));
+      }
+
+      renderCoreBottom(bottom);
+    }
+
+    function renderCoreBottom(bottom) {
+      const locked = st.antiLock && !ui.viewedBack;
+      const tip = locked ? `<div class="lock-tip">🔒 防误触锁：请先点击签面翻看背面考点</div>` : "";
+
+      if (st.coreMode === "round") {
+        const r = curRound();
+        bottom.innerHTML = `
+          ${tip}
+          <div class="btn-row">
+            <button id="btnDrawR" class="btn-main" type="button" ${locked ? "disabled" : ""}>
+              ${r.remaining.length === 0 ? "完成本轮 ✓" : `下一签（余 ${r.remaining.length}）`}
+            </button>
+          </div>
+          <div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;">
+            <button id="btnUndoR" class="mini-btn" type="button" ${r.undoStack.length ? "" : "disabled"}>↩ 撤回上一签</button>
+            <span style="font-size:11px;color:var(--ink-muted);">第 ${r.roundNo} 轮</span>
+          </div>
+        `;
+        document.getElementById("btnDrawR").addEventListener("click", drawRoundCard);
+        document.getElementById("btnUndoR").addEventListener("click", undoRoundCard);
+      } else {
+        bottom.innerHTML = `
+          ${tip}
+          <div class="btn-row">
+            <button id="btnUnfam" class="btn-err" type="button" ${locked ? "disabled" : ""}>
+              <span>仍陌生 · 高频重抽</span>
+              <span class="sub">留陌生盒 · 权重×2.5</span>
+            </button>
+            <button id="btnMast" class="btn-ok" type="button" ${locked ? "disabled" : ""}>
+              <span>已熟练 · 归档熟练盒</span>
+              <span class="sub">不再抽取 · 随时可移回</span>
+            </button>
+          </div>
+          <div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;">
+            <button id="btnUndoB" class="mini-btn" type="button" ${st.box.undoStack.length ? "" : "disabled"}>↩ 撤回上一步</button>
+            <span style="font-size:11px;color:var(--ink-muted);">熟练 ${st.box.masteredIds.length} / 57</span>
+          </div>
+        `;
+        document.getElementById("btnUnfam").addEventListener("click", boxStillUnfam);
+        document.getElementById("btnMast").addEventListener("click", boxMarkMastered);
+        document.getElementById("btnUndoB").addEventListener("click", undoBoxStep);
+      }
+    }
+
+    function render() {
+      document.getElementById("tabCa").classList.toggle("active", st.activeTrack === "ca");
+      document.getElementById("tabCore").classList.toggle("active", st.activeTrack === "core");
+      renderGoalBar();
+      renderSubBar();
+      renderStage();
+    }
+
+    /* ==========================================================================
+       8. 检索抽屉、存档备份与二次确认
+       ========================================================================== */
+    function openSearchModal(flt = "ALL") {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("searchFilter").value = flt;
+      document.getElementById("searchModal").classList.add("open");
+      renderSearchList();
+    }
+
+    function renderSearchList() {
+      const kw = document.getElementById("searchInput").value.trim().toLowerCase();
+      const flt = document.getElementById("searchFilter").value;
+      const listEl = document.getElementById("searchList");
+      const mSet = new Set(st.box.masteredIds);
+
+      const rows = [
+        ...CA_TOPICS.map(t => ({
+          kind: "ca", id: t.id,
+          badge: t.code, badgeCls: t.area === "dom" ? "slate" : "forest",
+          title: t.title,
+          sub: t.chips.map(x => x.replace(/<[^>]+>/g, "")).join(" ｜ "),
+          isMast: st.caFamiliarIds.includes(t.id),
+          w: CA_QUESTIONS.filter(q => q.topicId === t.id && (st.wrongMap[q.id] || 0) > 0).length
+        })),
+        ...CORE_SORTED.map(c => ({
+          kind: "core", id: c.id,
+          badge: c.kind === "meeting" ? "会议" : "毛著",
+          badgeCls: c.kind === "meeting" ? "crimson" : "forest",
+          title: `${c.year} ${c.title}`,
+          sub: `${c.tag} · ${c.core.replace(/\{\{|\}\}/g, "")}`,
+          isMast: mSet.has(c.id),
+          w: st.wrongMap[c.id] || 0
+        }))
+      ].filter(r => {
+        if (flt === "UNFAMILIAR" && r.isMast) return false;
+        if (flt === "MASTERED" && !r.isMast) return false;
+        if (flt === "WRONG" && r.w <= 0) return false;
+        if (!kw) return true;
+        return r.title.toLowerCase().includes(kw) || r.sub.toLowerCase().includes(kw);
+      });
+
+      if (!rows.length) {
+        listEl.innerHTML = `<div style="text-align:center;padding:26px;color:var(--ink-muted);font-size:13px;">未找到匹配条目</div>`;
+        return;
+      }
+
+      listEl.innerHTML = rows.map(r => `
+        <div class="search-row-card ${r.isMast ? "done" : ""}">
+          <div class="search-row-top">
+            <div class="search-row-meta">
+              <span class="badge ${r.badgeCls}">${r.badge}</span>
+              <strong style="font-size:13.5px;line-height:1.4;">${r.title}</strong>
+              ${r.w > 0 ? `<span class="badge amber">🔥 错×${r.w}</span>` : ""}
+            </div>
+            <button class="mini-btn" style="flex-shrink:0;${r.isMast ? "background:var(--amber-soft);color:var(--amber);" : "background:var(--forest-soft);color:var(--forest);"}" data-srid="${r.id}" data-srkind="${r.kind}" type="button">
+              ${r.isMast ? "移回未熟" : "标为已熟"}
+            </button>
+          </div>
+          <div class="search-row-sub">${r.sub}</div>
+        </div>
+      `).join("");
+
+      listEl.querySelectorAll("[data-srid]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.srid;
+          if (btn.dataset.srkind === "core") {
+            saveBoxUndo();
+            if (st.box.masteredIds.includes(id)) st.box.masteredIds = st.box.masteredIds.filter(x => x !== id);
+            else st.box.masteredIds.push(id);
+          } else {
+            if (st.caFamiliarIds.includes(id)) st.caFamiliarIds = st.caFamiliarIds.filter(x => x !== id);
+            else st.caFamiliarIds.push(id);
+          }
+          persist();
+          render();
+          renderSearchList();
+        });
+      });
+    }
+
+    let confirmCallback = null;
+    function openConfirm(title, msg, fn) {
+      document.getElementById("confirmTitle").textContent = title;
+      document.getElementById("confirmMsg").textContent = msg;
+      confirmCallback = fn;
+      document.getElementById("confirmModal").classList.add("open");
+    }
+
+    function handleResetTrack() {
+      if (st.activeTrack === "ca") {
+        openConfirm("重置时政闯关进度", "确定清空时政已刷题目、错题回炉与今日目标统计？", () => {
+          st.caDoneQIds = [];
+          st.caWrongQIds = [];
+          st.caFamiliarIds = [];
+          st.caStreak = 0;
+          st.todayDone = 0;
+          st.caCurQId = "q01";
+          ui.caPicked = [];
+          ui.caSubmitted = false;
+          persist();
+          toast("时政进度已重置");
+          render();
+        });
+      } else {
+        const sc = st.coreScope;
+        if (st.coreMode === "round") {
+          openConfirm("重置当前轮抽", "确定重置当前板块的轮抽进度并重新洗牌？", () => {
+            st.rounds[sc] = makeRoundState(sc, st.rounds[sc].order);
+            resetCoreTransient(false);
+            persist();
+            toast("本轮已重置");
+            render();
+          });
+        } else {
+          openConfirm("重置当前板块双盒", "确定将当前板块的熟练卡片全部移回陌生盒？", () => {
+            const setIds = new Set(getCorePool(sc));
+            st.box.masteredIds = st.box.masteredIds.filter(id => !setIds.has(id));
+            st.box.curByScope[sc] = null;
+            resetCoreTransient(false);
+            persist();
+            toast("双盒已重置");
+            render();
+          });
+        }
+      }
+    }
+
+    function bindEvents() {
+      document.getElementById("tabCa").addEventListener("click", () => {
+        st.activeTrack = "ca";
+        persist();
+        render();
+      });
+      document.getElementById("tabCore").addEventListener("click", () => {
+        st.activeTrack = "core";
+        persist();
+        render();
+      });
+
+      // 联动弹窗
+      document.getElementById("btnCloseLink").addEventListener("click", () => document.getElementById("linkModal").classList.remove("open"));
+      document.getElementById("linkModal").addEventListener("click", e => {
+        if (e.target === e.currentTarget) document.getElementById("linkModal").classList.remove("open");
+      });
+
+      // 检索弹窗
+      document.getElementById("btnOpenSearch").addEventListener("click", () => openSearchModal("ALL"));
+      document.getElementById("btnCloseSearch").addEventListener("click", () => document.getElementById("searchModal").classList.remove("open"));
+      document.getElementById("searchModal").addEventListener("click", e => {
+        if (e.target === e.currentTarget) document.getElementById("searchModal").classList.remove("open");
+      });
+      document.getElementById("searchInput").addEventListener("input", renderSearchList);
+      document.getElementById("searchFilter").addEventListener("change", renderSearchList);
+
+      // 存档弹窗
+      document.getElementById("btnOpenBackup").addEventListener("click", () => document.getElementById("backupModal").classList.add("open"));
+      document.getElementById("btnCloseBackup").addEventListener("click", () => document.getElementById("backupModal").classList.remove("open"));
+      document.getElementById("backupModal").addEventListener("click", e => {
+        if (e.target === e.currentTarget) document.getElementById("backupModal").classList.remove("open");
+      });
+      document.getElementById("btnExport").addEventListener("click", () => {
+        document.getElementById("backupArea").value = JSON.stringify(st);
+        toast("已生成备份码");
+      });
+      document.getElementById("btnCopy").addEventListener("click", () => {
+        const ta = document.getElementById("backupArea");
+        if (!ta.value.trim()) ta.value = JSON.stringify(st);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          toast("已复制到剪贴板");
+        } catch (_) {
+          toast("请长按文本框手动复制");
+        }
+      });
+      document.getElementById("btnImport").addEventListener("click", () => {
+        const raw = document.getElementById("backupArea").value.trim();
+        if (!raw) return toast("请先粘贴备份码");
+        try {
+          const obj = JSON.parse(raw);
+          st = { ...defaultState(), ...obj };
+          persist();
+          document.getElementById("backupModal").classList.remove("open");
+          toast("✓ 进度恢复成功");
+          render();
+        } catch (_) {
+          toast("备份码格式错误");
+        }
+      });
+
+      // 二次确认弹窗
+      const closeC = () => {
+        document.getElementById("confirmModal").classList.remove("open");
+        confirmCallback = null;
+      };
+      document.getElementById("btnCloseConfirm").addEventListener("click", closeC);
+      document.getElementById("btnCancelConfirm").addEventListener("click", closeC);
+      document.getElementById("confirmModal").addEventListener("click", e => {
+        if (e.target === e.currentTarget) closeC();
+      });
+      document.getElementById("btnOkConfirm").addEventListener("click", () => {
+        const fn = confirmCallback;
+        closeC();
+        if (typeof fn === "function") fn();
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadSaved();
+      bindEvents();
+      render();
+    });
+  </script>
+</body>
+</html>
